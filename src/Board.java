@@ -10,7 +10,7 @@ public class Board extends JFrame {
 	paddle pad1;
 	ball ball1;
 	Game_Over gameover;
-	boolean ballMove = true;
+	boolean pause = false;
 	int lev_no = 1;
 	
 	
@@ -18,7 +18,6 @@ public class Board extends JFrame {
 	
 	Board()
 	{	
-		
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
@@ -37,7 +36,7 @@ public class Board extends JFrame {
 		lev1.generate();
 		
 		
-		while(ballMove) 
+		while(!pause) 
 		{
 		
 			ball1.motion();
@@ -72,11 +71,12 @@ public class Board extends JFrame {
 		public void keyPressed(KeyEvent e) 
 		{
 			
+			if(!pause) {
 			pad1.keyPress(e,w);	
 			repaint();
 		}
+		}
 	}
-	
 	
 	
 	public static void main (String[] args) 
@@ -89,17 +89,22 @@ public class Board extends JFrame {
 		if (ball1.x + ball1.r >= w -margin || ball1.x <= margin)
 		{
 			ball1.east = !ball1.east;
-			System.out.println("HIT X");
-				
+			System.out.println("HIT X");		
 		}
 		
 		if ( ball1.y >= h-margin ) // GAME LOST
 		{
-			ballMove = false;
+			pause = true;
 			gameover.endgame();
 		}
 		
-		if (ball1.y <= margin ||(ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
+		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
+		{
+			ball1.south = false;
+			System.out.println("HIT Y");
+		}
+		
+		if (ball1.y <= margin)
 		{
 			ball1.south = !ball1.south;
 			System.out.println("HIT Y");

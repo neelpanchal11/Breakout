@@ -16,7 +16,6 @@ public class brick
 		this.x = x;
 		this.y = y;
 		state = true;
-		System.out.println("Brick");
 	}
 	
 	public void draw(Graphics g)

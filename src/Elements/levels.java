@@ -24,7 +24,7 @@ public class levels
             	
             	if(pattern[i][j])
             	{
-            		bricks[i][j] = new brick(j * 180 + 80, i * 90 + 80);
+            		bricks[i][j] = new brick(j * 150 + 85, i * 65 + 85);
             
             	}
         

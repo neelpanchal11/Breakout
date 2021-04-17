@@ -46,21 +46,25 @@ public class Board extends JPanel {
 	
 	public void gameloop() 
 	{
-		while(!pause) 
+		while(true) 
 		{
-			ball1.motion();
-			collisionCheck();
-			repaint();
+			if(!pause)
+			{
+				ball1.motion();
+				collisionCheck();
+				repaint();
+			}
+				try
+				{
+					Thread.sleep(15); 
+				}
+				catch (InterruptedException e)
+				{
+					e.printStackTrace();
+				}
 			
-			try
-			{
-				Thread.sleep(15); 
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-		}		
+	
+	}
 	}
 	
 	public class AL extends KeyAdapter
@@ -68,6 +72,20 @@ public class Board extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{	
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+				if (!pause) 
+				{
+					menu.pausegame(w,h);
+				}
+				else
+				{
+					
+					menu.dispose();
+
+				}
+				pause = !pause;
+			}
+				
 			if(!pause)
 			{
 			pad1.keyPress(e,w);	
@@ -83,7 +101,7 @@ public class Board extends JPanel {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		window.setTitle("ATARI BREAKOUT COPY");
 		window.setVisible(true);
-		
+
 		w = window.getSize().width; 
 		h = window.getSize().height;
 		

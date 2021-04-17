@@ -13,10 +13,12 @@ public class Board extends JFrame {
 	
 	Board()
 	{	
+		
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.addKeyListener(new AL());
+		this.setBackground(new Color(50,50,50));
 		
 		this.setLocationRelativeTo(null);
 		this.pack();
@@ -35,14 +37,14 @@ public class Board extends JFrame {
 			ball1.motion();
 		
 		try {
-			Thread.sleep(10); 
+			Thread.sleep(4); 
 		} catch (InterruptedException e) {			// DELAY
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		repaint();
 		collisionCheck();
+		repaint();
 		}
 		
 	}

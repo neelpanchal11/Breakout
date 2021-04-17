@@ -9,6 +9,7 @@ public class Board extends JFrame {
 	Image canvas;
 	paddle pad1;
 	ball ball1;
+	Game_Over gameover;
 	boolean ballMove = true;
 	int lev_no = 1;
 	
@@ -50,10 +51,8 @@ public class Board extends JFrame {
 		
 		collisionCheck();
 		repaint();
-		}
-		
+		}		
 	}
-
 	
 
 	public void paint(Graphics g) 
@@ -72,7 +71,9 @@ public class Board extends JFrame {
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{
-			pad1.keyPress(e);			
+			
+			pad1.keyPress(e,w);	
+			repaint();
 		}
 	}
 	
@@ -92,18 +93,16 @@ public class Board extends JFrame {
 				
 		}
 		
-		if (ball1.y >= h-margin || ball1.y <= margin)
+		if ( ball1.y >= h-margin ) // GAME LOST
 		{
-			ball1.south = !ball1.south;
-			System.out.println("HIT Y");
+			ballMove = false;
+			gameover.endgame();
 		}
 		
-		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
+		if (ball1.y <= margin ||(ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
 		{
 			ball1.south = !ball1.south;
 			System.out.println("HIT Y");
 		}
-
 	}
-
 }

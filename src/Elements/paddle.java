@@ -17,15 +17,15 @@ public class paddle
 		  this.y =y;	  
 	  }
 
-	  public void keyPress(KeyEvent e)
+	  public void keyPress(KeyEvent e, int w_screen)
 	  {
 		  
-		  if (e.getKeyCode() == KeyEvent.VK_LEFT) 
+		  if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0 ) 
 		  {
 		        this.x = this.x - 10;
 		  }
 		
-		  if (e.getKeyCode() == KeyEvent.VK_RIGHT) 
+		  if (e.getKeyCode() == KeyEvent.VK_RIGHT && x + w < w_screen) 
 		  {
 		        this.x = this.x + 10;
 		  }

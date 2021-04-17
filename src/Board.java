@@ -73,7 +73,6 @@ public class Board extends JFrame {
 		public void keyPressed(KeyEvent e) 
 		{
 			pad1.keyPress(e);			
-			repaint();
 		}
 	}
 	

@@ -10,6 +10,10 @@ public class Board extends JFrame {
 	paddle pad1;
 	ball ball1;
 	boolean ballMove = true;
+	int lev_no = 1;
+	
+	
+	levels lev1 = new levels(5,8, lev_no);
 	
 	Board()
 	{	
@@ -29,6 +33,7 @@ public class Board extends JFrame {
 		
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
+		lev1.generate();
 		
 		
 		while(ballMove) 
@@ -58,6 +63,7 @@ public class Board extends JFrame {
 
 			pad1.draw(g);
 			ball1.draw(g);
+			lev1.draw(g);
 	}
 	
 	

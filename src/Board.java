@@ -9,10 +9,9 @@ public class Board extends JFrame {
 	Image canvas;
 	paddle pad1;
 	ball ball1;
-	Game_Over gameover;
+	Menus menu = new Menus();
 	boolean pause = false;
 	int lev_no = 1;
-	
 	
 	levels lev1 = new levels(5,8, lev_no);
 	
@@ -40,7 +39,8 @@ public class Board extends JFrame {
 		{
 		
 			ball1.motion();
-		
+			//menu.pause(); method for pause
+			
 		try {
 			Thread.sleep(4); 
 		} catch (InterruptedException e) {			// DELAY
@@ -95,7 +95,7 @@ public class Board extends JFrame {
 		if ( ball1.y >= h-margin ) // GAME LOST
 		{
 			pause = true;
-			gameover.endgame();
+			menu.endgame(); //method for end menu
 		}
 		
 		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))

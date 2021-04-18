@@ -27,7 +27,8 @@ public class ball
 		  public void draw(Graphics g)
 		  {
 			  g.setColor(new Color(255, 255, 255));
-			  g.fillOval(this.x, this.y, this.r, this.r);
+			  g.fillOval(this.x, this.y, this.r, this.r);  
+			  
 		  }
 
 		

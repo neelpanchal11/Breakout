@@ -7,17 +7,14 @@ public class Board extends JPanel {
 	
 	static int w;
 	static int h;
-	static int margin=0;	
-	
-	Image canvas;
-	JPanel panel= new JPanel();
-	paddle pad1;
-	ball ball1;
-	Menus menu = new Menus();
-	
 	boolean pause = false;
 	int lev_no = 0;
 	
+	Image canvas;
+	paddle pad1;
+	ball ball1;
+	Menus menu = new Menus();
+	JPanel panel= new JPanel();
 	levels lev1 = new levels(6,9, lev_no);
 	
 	Board()
@@ -25,6 +22,7 @@ public class Board extends JPanel {
 
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
+		
 		canvas = createImage(w,h);
 		lev1.generate();
 		
@@ -54,17 +52,16 @@ public class Board extends JPanel {
 				collisionCheck();
 				repaint();
 			}
-				try
-				{
-					Thread.sleep(3); 
-				}
-				catch (InterruptedException e)
-				{
-					e.printStackTrace();
-				}
-			
-	
-	}
+			try
+			{
+				Thread.sleep(3); 
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
+
+		}
 	}
 	
 	public class AL extends KeyAdapter
@@ -78,13 +75,9 @@ public class Board extends JPanel {
 				{
 					menu.pausegame(w,h);
 				}
-				else
-				{
-					menu.dispose();
-				}
+				
 				pause = !pause;
 			}
-			
 			
 			if(!pause)
 			{
@@ -94,33 +87,15 @@ public class Board extends JPanel {
 		}
 	}	
 	
-	public static void main (String[] args) 
-	{		
-		JFrame window = new JFrame();
-		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		window.setTitle("ATARI BREAKOUT COPY");
-		window.setVisible(true);
-
-		w = window.getSize().width; 
-		h = window.getSize().height;
-		
-		Board game = new Board();
-		window.addKeyListener(game.new AL());
-		window.add(game);
-		game.gameloop();
-		
-	}
-	
 	public void collisionCheck() 
 	{
-		if (ball1.x + ball1.r >= w -margin || ball1.x <= margin)
+		if (ball1.x + ball1.r >= w || ball1.x <= 0)
 		{
 			ball1.east = !ball1.east;
 			System.out.println("HIT X");		
 		}
 		
-		if ( ball1.y >= h-margin ) // GAME LOST
+		if ( ball1.y >= h) // GAME LOST
 		{
 			pause = true;
 			menu.endgame(); //method for end menu
@@ -132,7 +107,7 @@ public class Board extends JPanel {
 			System.out.println("HIT Y");
 		}
 		
-		if (ball1.y <= margin)
+		if (ball1.y <= 0)
 		{
 			ball1.south = !ball1.south;
 			System.out.println("HIT Y");
@@ -140,15 +115,40 @@ public class Board extends JPanel {
 		
 		if (ball1.y < 600) 
 		{
+		
 			int side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
+			
 			if (side == -1)
 			{
 				ball1.east = !ball1.east;
 			}
+			
 			else if (side == 1)
 			{
 				ball1.south = !ball1.south;
 			}
+		
 		}
+	}
+	
+	public static void main (String[] args) 
+	{		
+		
+		JFrame window = new JFrame();
+		
+		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		window.setTitle("ATARI BREAKOUT COPY");
+		window.setVisible(true);
+
+		w = window.getSize().width; 
+		h = window.getSize().height;
+		
+		Board game = new Board();
+		
+		window.addKeyListener(game.new AL());
+		window.add(game);
+		game.gameloop();
+		
 	}
 }

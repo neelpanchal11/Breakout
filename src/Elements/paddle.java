@@ -8,6 +8,7 @@ public class paddle
 
 	  static public int w = 250;
 	  int h = 25;
+	  int step= 15;
 	  
 	  public int x,y;
 	  
@@ -22,12 +23,12 @@ public class paddle
 		  
 		  if (e.getKeyCode() == KeyEvent.VK_LEFT && x > 0 ) 
 		  {
-		        this.x = this.x - 10;
+		        this.x = this.x - step;
 		  }
 		
 		  if (e.getKeyCode() == KeyEvent.VK_RIGHT && x + w < w_screen) 
 		  {
-		        this.x = this.x + 10;
+		        this.x = this.x + step;
 		  }
 	  }
 	  

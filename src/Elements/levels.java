@@ -47,7 +47,7 @@ public class levels
         }
 	}
 
-	public int BrickColision(int ballx, int bally, int ballr) 
+	public byte BrickColision(int ballx, int bally, int ballr) 
 	{
 		
 		for (int i = 0; i < row; i++) {
@@ -57,7 +57,7 @@ public class levels
             	if(pattern[i][j] && bricks[i][j].state)
             	{
             	
-            		if(bricks[i][j].x < ballx + ballr && bricks[i][j].x + bricks[i][j].w > ballx)
+            		if(bricks[i][j].x < ballx + ballr && bricks[i][j].x + bricks[i][j].w > ballx) // Vertical Collision
             		{
             			
             			if (bally + ballr == bricks[i][j].y || bally == bricks[i][j].y + bricks[i][j].h )
@@ -67,13 +67,12 @@ public class levels
             			}
             			
             		}
-        			if(bricks[i][j].y < bally + ballr && bricks[i][j].y + bricks[i][j].h > bally)
+        			if(bricks[i][j].y < bally + ballr && bricks[i][j].y + bricks[i][j].h > bally) // Horizontal Collision
         			{
         				if (ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w )
         				{
         					bricks[i][j].state = false;
-        					return -1;
-        			
+        					return -1;        			
         				}
         			}
             	}
@@ -81,6 +80,23 @@ public class levels
         }
 	
 	return 0;
+	}
+	
+	public byte numBrick()
+	{
+		
+		byte count = 0;
+		for (int i = 0; i < row; i++) {
+
+            for (int j = 0; j < col; j++) {
+            	
+            	if(pattern[i][j] && bricks[i][j].state)
+            	{
+            		count++;
+            	}
+            }
+        }
+		return count;
 	}
 
 }

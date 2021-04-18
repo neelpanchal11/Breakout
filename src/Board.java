@@ -7,8 +7,10 @@ public class Board extends JPanel {
 	
 	static int w;
 	static int h;
-	boolean pause = false;
-	int lev_no = 0;
+	byte score = 0;
+	boolean pause = true;
+	int lev_no;
+	int numBrick;
 	
 	Image canvas;
 	paddle pad1;
@@ -17,14 +19,18 @@ public class Board extends JPanel {
 	JPanel panel= new JPanel();
 	levels lev1 = new levels(6,9, lev_no);
 	
-	Board()
+	
+	Board(int w, int h, int lev_no)
 	{	
-
+		this.w= w;
+		this.h = h;
+		this.lev_no = lev_no;
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
 		
 		canvas = createImage(w,h);
 		lev1.generate();
+		numBrick = lev1.numBrick();
 		
 		this.setBounds(0,0,w,h);
 		this.setBackground(new Color(50,50,50));
@@ -51,7 +57,12 @@ public class Board extends JPanel {
 				ball1.motion();
 				collisionCheck();
 				repaint();
+			}else
+			{
+				pause = menu.resume();
 			}
+
+			
 			try
 			{
 				Thread.sleep(3); 
@@ -60,7 +71,6 @@ public class Board extends JPanel {
 			{
 				e.printStackTrace();
 			}
-
 		}
 	}
 	
@@ -73,16 +83,22 @@ public class Board extends JPanel {
 			{
 				if (!pause) 
 				{
+					pause = true;
 					menu.pausegame(w,h);
 				}
-				
-				pause = !pause;
 			}
 			
 			if(!pause)
 			{
 			pad1.keyPress(e,w);	
 			repaint();
+			}
+			if (e.getKeyCode() == KeyEvent.VK_ENTER)
+			{
+				if (pause) 
+				{
+					pause = false;
+				}
 			}
 		}
 	}	
@@ -98,7 +114,7 @@ public class Board extends JPanel {
 		if ( ball1.y >= h) // GAME LOST
 		{
 			pause = true;
-			menu.endgame(); //method for end menu
+			menu.endgame(false); //method for end menu
 		}
 		
 		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
@@ -116,39 +132,29 @@ public class Board extends JPanel {
 		if (ball1.y < 600) 
 		{
 		
-			int side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
+			byte side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
 			
 			if (side == -1)
 			{
 				ball1.east = !ball1.east;
+				score++;
+				if (numBrick == score)
+				{
+					pause = true;
+				}
 			}
 			
 			else if (side == 1)
 			{
 				ball1.south = !ball1.south;
+				score++;
+				if (numBrick == score)
+				{
+					menu.endgame(true);
+				}
 			}
 		
 		}
 	}
-	
-	public static void main (String[] args) 
-	{		
-		
-		JFrame window = new JFrame();
-		
-		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		window.setTitle("ATARI BREAKOUT COPY");
-		window.setVisible(true);
 
-		w = window.getSize().width; 
-		h = window.getSize().height;
-		
-		Board game = new Board();
-		
-		window.addKeyListener(game.new AL());
-		window.add(game);
-		game.gameloop();
-		
-	}
 }

@@ -18,7 +18,6 @@ public class Menus extends JFrame {
 	    l1.setBounds(0,-50,500,400);
 	    add(b1);
 	    add(l1);
-	    this.addKeyListener(new AL());
 	    
 	}
 	

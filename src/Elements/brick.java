@@ -7,8 +7,8 @@ public class brick
 {
 	public int x;
 	public int y;
-	public int l=140;
-	public int b=55;
+	public int w=140;
+	public int h=55;
 	boolean state;
 	public brick(int x, int y)
 	{
@@ -24,7 +24,7 @@ public class brick
 		if (state)
 		{
 		g.setColor(new Color(150,150,255));
-		g.fillRect(this.x, this.y, l, b);
+		g.fillRect(this.x, this.y, w, h);
 		}
 	}
 }

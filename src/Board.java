@@ -7,10 +7,10 @@ public class Board extends JPanel {
 	
 	static int w;
 	static int h;
-	static int margin=40;	
+	static int margin=0;	
 	
 	Image canvas;
-	JPanel panel= new JPanel();;
+	JPanel panel= new JPanel();
 	paddle pad1;
 	ball ball1;
 	Menus menu = new Menus();
@@ -56,7 +56,7 @@ public class Board extends JPanel {
 			}
 				try
 				{
-					Thread.sleep(15); 
+					Thread.sleep(3); 
 				}
 				catch (InterruptedException e)
 				{
@@ -72,20 +72,20 @@ public class Board extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{	
-			if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (e.getKeyCode() == KeyEvent.VK_SPACE)
+			{
 				if (!pause) 
 				{
 					menu.pausegame(w,h);
 				}
 				else
 				{
-					
 					menu.dispose();
-
 				}
 				pause = !pause;
 			}
-				
+			
+			
 			if(!pause)
 			{
 			pad1.keyPress(e,w);	
@@ -136,6 +136,19 @@ public class Board extends JPanel {
 		{
 			ball1.south = !ball1.south;
 			System.out.println("HIT Y");
+		}
+		
+		if (ball1.y < 600) 
+		{
+			int side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
+			if (side == -1)
+			{
+				ball1.east = !ball1.east;
+			}
+			else if (side == 1)
+			{
+				ball1.south = !ball1.south;
+			}
 		}
 	}
 }

@@ -10,6 +10,7 @@ public class Board extends JPanel {
 	byte score = 0;
 	boolean pause = true;
 	boolean end = false;
+	boolean reset = false;
 	int lev_no;
 	int numBrick;
 	
@@ -72,6 +73,10 @@ public class Board extends JPanel {
 				pause = menu.resume();
 			}
 			
+			if (reset)
+			{
+				break;
+			}
 			try
 			{
 				Thread.sleep(3); 
@@ -80,6 +85,7 @@ public class Board extends JPanel {
 			{
 				e.printStackTrace();
 			}
+			reset = menu.re_check();
 		}
 	}
 	
@@ -117,7 +123,7 @@ public class Board extends JPanel {
 	{
 		String s = String.valueOf(score);
 		score_disp.setText(s);
-		score_disp.setBounds(40,20,50,50);
+		score_disp.setBounds(40,20,100,50);
 		score_disp.setFont(new Font("Verdana", Font.BOLD, 40));
 	    score_disp.setForeground(new Color(255, 150, 150));
 	    add(score_disp);	

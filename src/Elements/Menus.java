@@ -6,10 +6,12 @@ import java.awt.event.*;
 public class Menus extends JFrame {
 	
 	boolean pause = true;
+	boolean reset = false;
+	JFrame f1;
 	
 	public void endgame(boolean won)
 	{
-	    JFrame f1 = new JFrame();
+	    f1 = new JFrame();
 	    JLabel l1;
 	    JLabel l2;
 	    
@@ -27,9 +29,11 @@ public class Menus extends JFrame {
 	    
 	    reset.setBounds(280,580,200,60);
 	    exit.setBounds(280,650,200,50);
+	    
 	    l1.setBounds(100,120,600,440);
 	    l2.setBounds(130,20,500,100);
 	    exit.addActionListener(new BL());
+	    reset.addActionListener(new RL());
 	    
 	    f1.setUndecorated(true);
 	    f1.getContentPane().setBackground(Color.BLACK);
@@ -69,6 +73,11 @@ public class Menus extends JFrame {
 		return pause;
 	}
 	
+	public boolean re_check()
+	{
+		return reset;
+	}
+	
 	public class AL extends KeyAdapter
 	{
 		@Override
@@ -90,6 +99,14 @@ public class Menus extends JFrame {
 		  public void actionPerformed(ActionEvent e)
 			{		
 				System.exit(0);			
+			}
+	}
+	public class RL implements ActionListener
+	{
+		  public void actionPerformed(ActionEvent e)
+			{		
+			  	f1.dispose();
+				reset = true;			
 			}
 	}
 }

@@ -154,6 +154,7 @@ public class Board extends JPanel {
 				if (numBrick == score)
 				{
 					pause = true;
+					menu.endgame(true);
 				}
 			}
 			
@@ -163,6 +164,7 @@ public class Board extends JPanel {
 				score++;
 				if (numBrick == score)
 				{
+					pause = true;
 					menu.endgame(true);
 				}
 			}

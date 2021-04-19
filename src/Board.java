@@ -9,6 +9,7 @@ public class Board extends JPanel {
 	static int h;
 	byte score = 0;
 	boolean pause = true;
+	boolean end = false;
 	int lev_no;
 	int numBrick;
 	
@@ -56,7 +57,7 @@ public class Board extends JPanel {
 	{
 		while(true) 
 		{
-			if(!pause)
+			if(!pause&&!end)
 			{
 				ball1.motion();
 				collisionCheck();
@@ -67,7 +68,6 @@ public class Board extends JPanel {
 			{
 				pause = menu.resume();
 			}
-
 			
 			try
 			{
@@ -85,23 +85,23 @@ public class Board extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{	
-			if (e.getKeyCode() == KeyEvent.VK_SPACE)
+			if (e.getKeyCode() == KeyEvent.VK_SPACE) // PAUSE GAME
 			{
-				if (!pause) 
+				if (!pause&&!end) 
 				{
 					pause = true;
 					menu.pausegame(w,h);
 				}
 			}
 			
-			if(!pause)
+			if(!pause&&!end) // START GAME
 			{
 			pad1.keyPress(e,w);	
 			repaint();
 			}
 			if (e.getKeyCode() == KeyEvent.VK_ENTER)
 			{
-				if (pause) 
+				if (pause && !end) 
 				{
 					pause = false;
 				}
@@ -129,7 +129,7 @@ public class Board extends JPanel {
 		
 		if ( ball1.y >= h) // GAME LOST
 		{
-			pause = true;
+			end = true;
 			menu.endgame(false); //method for end menu
 		}
 		
@@ -154,7 +154,7 @@ public class Board extends JPanel {
 				score++;
 				if (numBrick == score)
 				{
-					pause = true;
+					end = true;
 					menu.endgame(true);
 				}
 			}
@@ -165,11 +165,10 @@ public class Board extends JPanel {
 				score++;
 				if (numBrick == score)
 				{
-					pause = true;
+					end = true;
 					menu.endgame(true);
 				}
 			}
-		
 		}
 	}
 

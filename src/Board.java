@@ -19,6 +19,7 @@ public class Board extends JPanel {
 	Menus menu = new Menus();
 	JPanel panel= new JPanel();
 	JLabel score_disp;
+	JLabel start_game;
 	levels lev1;
 	
 	Board(int w, int h, int lev_no)
@@ -27,17 +28,19 @@ public class Board extends JPanel {
 		this.h = h;
 		this.lev_no = lev_no;
 		
-		
+	
 		score_disp = new JLabel();
-		
+		start_game = new JLabel(new ImageIcon("sprites\\start.jpg"));
+		startgame();
 		lev1 = new levels(6,9, lev_no);
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
 		canvas = createImage(w,h);
 		lev1.generate();
 		numBrick = lev1.numBrick();
-		
+
 		this.setBounds(0,0,w,h);
+		this.setLayout(null);
 		this.setBackground(new Color(50,50,50));
 	
 	}
@@ -103,6 +106,7 @@ public class Board extends JPanel {
 			{
 				if (pause && !end) 
 				{
+					start_game.setVisible(false);
 					pause = false;
 				}
 			}
@@ -116,7 +120,16 @@ public class Board extends JPanel {
 		score_disp.setBounds(40,20,50,50);
 		score_disp.setFont(new Font("Verdana", Font.BOLD, 40));
 	    score_disp.setForeground(new Color(255, 150, 150));
-	    add(score_disp);
+	    add(score_disp);	
+	}
+	
+	public void startgame()
+	{
+		start_game.setBounds(w/2 - 238,h/2 - 35,476,70);
+		start_game.setFont(new Font("Verdana", Font.BOLD, 80));
+		start_game.setBackground(new Color(0,0,0));
+		start_game.setVisible(true);
+	    add(start_game);
 		
 	}
 	

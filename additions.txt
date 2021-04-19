@@ -1,6 +1,10 @@
 score label	DONE 
-game over beaut	DONE 
-start menu (press enter)
+game over beaut	DONE
+
+start menu
 level selection
-restart button
+after start (press enter) DONE
+end and win restart button
+
+pause glitch
 

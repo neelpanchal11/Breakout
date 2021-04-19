@@ -17,17 +17,17 @@ public class Board extends JPanel {
 	ball ball1;
 	Menus menu = new Menus();
 	JPanel panel= new JPanel();
+	JLabel score_disp;
 	levels lev1 = new levels(6,9, lev_no);
-	
 	
 	Board(int w, int h, int lev_no)
 	{	
 		this.w= w;
 		this.h = h;
 		this.lev_no = lev_no;
+		score_disp = new JLabel();
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
-		
 		canvas = createImage(w,h);
 		lev1.generate();
 		numBrick = lev1.numBrick();
@@ -56,8 +56,10 @@ public class Board extends JPanel {
 			{
 				ball1.motion();
 				collisionCheck();
+				score_display(score);
 				repaint();
-			}else
+			}
+			else
 			{
 				pause = menu.resume();
 			}
@@ -102,6 +104,17 @@ public class Board extends JPanel {
 			}
 		}
 	}	
+	
+	public void score_display(byte score)
+	{
+		String s = String.valueOf(score);
+		score_disp.setText(s);
+		score_disp.setBounds(40,20,50,50);
+		score_disp.setFont(new Font("Verdana", Font.BOLD, 30));
+	    score_disp.setForeground(Color.red);
+	    add(score_disp);
+		
+	}
 	
 	public void collisionCheck() 
 	{

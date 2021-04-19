@@ -1,0 +1,6 @@
+score label	DONE 
+game over beaut	DONE 
+start menu (press enter)
+level selection
+restart button
+

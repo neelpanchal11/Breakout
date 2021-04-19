@@ -18,14 +18,18 @@ public class Board extends JPanel {
 	Menus menu = new Menus();
 	JPanel panel= new JPanel();
 	JLabel score_disp;
-	levels lev1 = new levels(6,9, lev_no);
+	levels lev1;
 	
 	Board(int w, int h, int lev_no)
 	{	
 		this.w= w;
 		this.h = h;
 		this.lev_no = lev_no;
+		
+		
 		score_disp = new JLabel();
+		
+		lev1 = new levels(6,9, lev_no);
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
 		canvas = createImage(w,h);
@@ -110,8 +114,8 @@ public class Board extends JPanel {
 		String s = String.valueOf(score);
 		score_disp.setText(s);
 		score_disp.setBounds(40,20,50,50);
-		score_disp.setFont(new Font("Verdana", Font.BOLD, 30));
-	    score_disp.setForeground(Color.red);
+		score_disp.setFont(new Font("Verdana", Font.BOLD, 40));
+	    score_disp.setForeground(new Color(255, 150, 150));
 	    add(score_disp);
 		
 	}
@@ -120,8 +124,7 @@ public class Board extends JPanel {
 	{
 		if (ball1.x + ball1.r >= w || ball1.x <= 0)
 		{
-			ball1.east = !ball1.east;
-			System.out.println("HIT X");		
+			ball1.east = !ball1.east;		
 		}
 		
 		if ( ball1.y >= h) // GAME LOST
@@ -133,13 +136,11 @@ public class Board extends JPanel {
 		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
 		{
 			ball1.south = false;
-			System.out.println("HIT Y");
 		}
 		
 		if (ball1.y <= 0)
 		{
 			ball1.south = !ball1.south;
-			System.out.println("HIT Y");
 		}
 		
 		if (ball1.y < 600) 

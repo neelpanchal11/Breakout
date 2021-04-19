@@ -20,7 +20,7 @@ public class runfile {
 
 		int w = window.getSize().width; 
 		int h = window.getSize().height;
-		int lev_no = 0;
+		int lev_no = 2;
 		
 		Board game = new Board(w,h,lev_no);
 		

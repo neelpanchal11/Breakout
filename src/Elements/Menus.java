@@ -49,7 +49,7 @@ public class Menus extends JFrame {
 	public void pausegame(int w, int h)
 	{
 		JLabel l1 = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
-	
+	    pause = true;
 		setLocation(0,25);
 	    setSize(w,h);
 	    setUndecorated(true);
@@ -62,13 +62,13 @@ public class Menus extends JFrame {
 	    
 	    this.addKeyListener(new AL());
 	    setAlwaysOnTop(true);
-	    pause = true;
 	}
 
 	public boolean resume() 
 	{
 		return pause;
 	}
+	
 	public class AL extends KeyAdapter
 	{
 		@Override

@@ -13,6 +13,7 @@ public class Board extends JPanel {
 	boolean reset = false;
 	int lev_no;
 	int numBrick;
+	sound bg;
 	
 	Image canvas;
 	paddle pad1;
@@ -23,11 +24,12 @@ public class Board extends JPanel {
 	JLabel start_game;
 	levels lev1;
 	
-	Board(int w, int h, int lev_no)
+	Board(int w, int h, int lev_no, sound bg)
 	{	
 		this.w= w;
 		this.h = h;
 		this.lev_no = lev_no;
+		this.bg = bg;
 		
 	
 		score_disp = new JLabel();
@@ -149,12 +151,15 @@ public class Board extends JPanel {
 		
 		if ( ball1.y >= h) // GAME LOST
 		{
+			bg.stop();
+			sound lose_sound = new sound("sounds\\lose.wav");
 			end = true;
 			menu.endgame(false); //method for end menu
 		}
 		
 		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
 		{
+			sound paddle_hit = new sound("sounds\\paddle_hit.wav");
 			ball1.south = false;
 		}
 		
@@ -172,8 +177,11 @@ public class Board extends JPanel {
 			{
 				ball1.east = !ball1.east;
 				score++;
+				sound brick_hit = new sound("sounds\\brick_hit.wav");
 				if (numBrick == score)
 				{
+					bg.stop();
+					sound win_sound = new sound("sounds\\win.wav");
 					end = true;
 					menu.endgame(true);
 				}
@@ -183,8 +191,27 @@ public class Board extends JPanel {
 			{
 				ball1.south = !ball1.south;
 				score++;
+				sound brick_hit = new sound("sounds\\brick_hit_v.wav");
+				
 				if (numBrick == score)
 				{
+					bg.stop();
+					sound win_sound = new sound("sounds\\win.wav");
+					end = true;
+					menu.endgame(true);
+				}
+				
+			}else if (side == 2)
+			{
+				ball1.south = !ball1.south;
+				ball1.east = !ball1.east;
+				score++;
+				sound brick_hit = new sound("sounds\\brick_hit_v.wav");
+				
+				if (numBrick == score)
+				{
+					bg.stop();
+					sound win_sound = new sound("sounds\\win.wav");
 					end = true;
 					menu.endgame(true);
 				}

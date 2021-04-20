@@ -17,11 +17,12 @@ public class Menus extends JFrame {
 	    if (won)
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\finished.jpeg"));
-	    	l2 = new JLabel();
 	    }else
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\me.jpg"));
 	    	l2 = new JLabel(new ImageIcon("sprites\\lose.jpg"));
+		    l2.setBounds(130,20,500,100);
+		    add(l2);
 	    }
 	    JButton reset = new JButton(new ImageIcon("sprites\\restart.jpg"));
 	    JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
@@ -30,7 +31,6 @@ public class Menus extends JFrame {
 	    exit.setBounds(280,650,200,50);
 	    
 	    l1.setBounds(90,120,600,440);
-	    l2.setBounds(130,20,500,100);
 	    exit.addActionListener(new BL());
 	    reset.addActionListener(new RL());
 	    setOpacity(1f);
@@ -43,7 +43,7 @@ public class Menus extends JFrame {
 	    add(reset);
 	    add(exit);
 	    add(l1);
-	    add(l2);
+
 
 	    setAlwaysOnTop(true);
 	}

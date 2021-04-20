@@ -10,6 +10,7 @@ public class runfile{
 	JFrame welcome;
 	static boolean reset = true;
 	static boolean on = false; 
+	static sound bg;
 	static JFrame window;
 	static JButton start;
 	static int lev_no;
@@ -21,23 +22,23 @@ public class runfile{
 			if(reset) {
 			runfile run = new runfile();
 			reset = false;
+			bg = new sound("sounds//bg.wav");
 			}
 			if(on)
-			{
+			{				
 				start();
 				window.dispose();
 				on = false;
 				reset = true;
 			}
 			System.out.println(); // I DONT EVEN KNOW
-			
 		}
 	}
 	
 	public runfile()
 	{
-		
-		String lev_arr[] = {"Demo","Level 1","Level 2","Level 3","Level 4","Level 5","Level 6"};
+	
+		String lev_arr[] = {"Demo","Level 1","Level 2","Level 3","Level 4","Level 5", "Level 6"};
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev = new JLabel(new ImageIcon("sprites\\level.jpg"));	
@@ -77,13 +78,13 @@ public class runfile{
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		window.setUndecorated(true);
-		window.setTitle("ATARI BREAKOUT COPY");
+		window.setTitle("ATRIA BREAKOUT");
 		window.setVisible(true);
 
 		int w = window.getSize().width; 
 		int h = window.getSize().height;
 		
-		Board game = new Board(w,h,lev_no);
+		Board game = new Board(w,h,lev_no, bg);
 		
 		window.addKeyListener(game.new AL());
 		window.add(game);

@@ -20,9 +20,11 @@ public class levels
 	public void generate()
 	{
 		
-        for (int i = 0; i < row; i++) {
+        for (int i = 0; i < row; i++)
+        {
 
-            for (int j = 0; j < col; j++) {
+            for (int j = 0; j < col; j++)
+            {
             	
             	if(pattern[i][j])
             	{
@@ -79,6 +81,13 @@ public class levels
         					return -1;        			
         				}
         			}
+        			
+        			if(ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w) // Corner Collision
+        				if(bally + ballr == bricks[i][j].y || bally == bricks[i][j].y + bricks[i][j].h)
+        				{
+        					bricks[i][j].state = false;
+        					return 2;       
+        				}
             	}
             }
         }

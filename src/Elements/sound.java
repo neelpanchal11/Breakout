@@ -37,6 +37,12 @@ public class sound {
 		
 		clip.stop();
 	}
-	
+	public void volume()
+	{
+		
+		FloatControl gainControl = 
+			    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			gainControl.setValue(-5.0f); 
+	}
 	
 }

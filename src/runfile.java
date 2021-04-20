@@ -73,6 +73,7 @@ public class runfile{
 
 	public static void start()
 	{		
+		bg.volume();
 		window = new JFrame();
 		
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);

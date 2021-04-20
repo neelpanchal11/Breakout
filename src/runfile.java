@@ -24,10 +24,10 @@ public class runfile{
 			}
 			if(on)
 			{
-			start();
-			window.dispose();
-			on = false;
-			reset = true;
+				start();
+				window.dispose();
+				on = false;
+				reset = true;
 			}
 			System.out.println(); // I DONT EVEN KNOW
 			

@@ -7,11 +7,9 @@ public class Menus extends JFrame {
 	
 	boolean pause = true;
 	boolean reset = false;
-	JFrame f1;
 	
 	public void endgame(boolean won)
 	{
-	    f1 = new JFrame();
 	    JLabel l1;
 	    JLabel l2;
 	    
@@ -35,18 +33,18 @@ public class Menus extends JFrame {
 	    exit.addActionListener(new BL());
 	    reset.addActionListener(new RL());
 	    
-	    f1.setUndecorated(true);
-	    f1.getContentPane().setBackground(Color.BLACK);
-	    f1.setLayout(null);
-	    f1.setVisible(true);
-	    f1.setBounds(430,100,800,750);
+	    setUndecorated(true);
+	    getContentPane().setBackground(Color.BLACK);
+	    setLayout(null);
+	    setVisible(true);
+	    setBounds(430,100,800,750);
 		
-	    f1.add(reset);
-	    f1.add(exit);
-	    f1.add(l1);
-	    f1.add(l2);
+	    add(reset);
+	    add(exit);
+	    add(l1);
+	    add(l2);
 
-	    f1.setAlwaysOnTop(true);
+	    setAlwaysOnTop(true);
 	}
 	
 	
@@ -107,7 +105,7 @@ public class Menus extends JFrame {
 	{
 		  public void actionPerformed(ActionEvent e)
 			{		
-			  	f1.dispose();
+			  	dispose();
 				reset = true;			
 			}
 	}

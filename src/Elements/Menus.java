@@ -24,11 +24,11 @@ public class Menus extends JFrame {
 		    l2.setBounds(130,20,500,100);
 		    add(l2);
 	    }
-	    JButton reset = new JButton(new ImageIcon("sprites\\restart.jpg"));
+	    JButton reset = new JButton(new ImageIcon("sprites\\menu.jpg"));
 	    JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 	    
-	    reset.setBounds(280,580,200,60);
-	    exit.setBounds(280,650,200,50);
+	    reset.setBounds(280,575,220,70);
+	    exit.setBounds(280,655,220,70);
 	    
 	    l1.setBounds(90,120,600,440);
 	    exit.addActionListener(new BL());

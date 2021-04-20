@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class runfile{
 
-	JComboBox level;
+	JComboBox levelbox;
 	JFrame welcome;
 	static boolean reset = true;
 	static boolean on = false; 
@@ -41,9 +41,16 @@ public class runfile{
 		String lev_arr[] = {"Demo","Level 1","Level 2","Level 3","Level 4","Level 5", "Level 6"};
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
-		JLabel lev = new JLabel(new ImageIcon("sprites\\level.jpg"));	
+		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
 		JLabel atari = new JLabel(new ImageIcon("sprites\\welcome.png"));
-		level = new JComboBox(lev_arr);
+		
+		levelbox = new JComboBox(lev_arr);
+		
+		//Hide drop down button of Combo box
+		levelbox.setUI(new javax.swing.plaf.metal.MetalComboBoxUI()
+			{public void layoutComboBox(Container parent, MetalComboBoxLayoutManager manager) 
+				{super.layoutComboBox(parent, manager);
+				 arrowButton.setBounds(0,0,0,0);}});
 		
 		welcome = new JFrame();
 		
@@ -54,16 +61,16 @@ public class runfile{
 		welcome.setVisible(true);
 		
 		atari.setBounds(250, 200, 1030, 300);
-		lev.setBounds(650,720,200,50);
-		lev.setVisible(true);
-		start.setBounds(400,720,200,50);
-		level.setBounds(650,720,200,50);
-		exit.setBounds(900,720,200,50);	
+		lev_label.setBounds(650,720,220,70);
+		lev_label.setVisible(true);
+		start.setBounds(400,720,220,70);
+		levelbox.setBounds(650,720,220,70);
+		exit.setBounds(900,720,220,70);	
 
 		welcome.add(atari);
-		welcome.add(lev);
+		welcome.add(lev_label);
 		welcome.add(start);
-		welcome.add(level);
+		welcome.add(levelbox);
 		welcome.add(exit);
 		
 		start.addActionListener(new start());
@@ -99,7 +106,7 @@ public class runfile{
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			lev_no = level.getSelectedIndex();
+			lev_no = levelbox.getSelectedIndex();
 			on = true;
 			welcome.dispose();
 		}

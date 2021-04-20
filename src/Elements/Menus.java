@@ -15,7 +15,7 @@ public class Menus extends JFrame {
 	    
 	    if (won)
 	    {
-	    	l1 = new JLabel(new ImageIcon("sprites\\win.png"));
+	    	l1 = new JLabel(new ImageIcon("sprites\\finished.jpeg"));
 	    	l2 = new JLabel();
 	    }else
 	    {
@@ -28,7 +28,7 @@ public class Menus extends JFrame {
 	    reset.setBounds(280,580,200,60);
 	    exit.setBounds(280,650,200,50);
 	    
-	    l1.setBounds(100,120,600,440);
+	    l1.setBounds(90,120,600,440);
 	    l2.setBounds(130,20,500,100);
 	    exit.addActionListener(new BL());
 	    reset.addActionListener(new RL());

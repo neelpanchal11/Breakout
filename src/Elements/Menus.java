@@ -7,6 +7,7 @@ public class Menus extends JFrame {
 	
 	boolean pause = true;
 	boolean reset = false;
+	JLabel pause_img;
 	
 	public void endgame(boolean won)
 	{
@@ -32,7 +33,7 @@ public class Menus extends JFrame {
 	    l2.setBounds(130,20,500,100);
 	    exit.addActionListener(new BL());
 	    reset.addActionListener(new RL());
-	    
+	    setOpacity(1f);
 	    setUndecorated(true);
 	    getContentPane().setBackground(Color.BLACK);
 	    setLayout(null);
@@ -50,7 +51,7 @@ public class Menus extends JFrame {
 	
 	public void pausegame(int w, int h)
 	{
-		JLabel l1 = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
+		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
 	    pause = true;
 		setLocation(0,25);
 	    setSize(w,h);
@@ -59,8 +60,8 @@ public class Menus extends JFrame {
 	    setOpacity(0.5f);
 	    setLayout(null);
 	    setVisible(true);
-	    l1.setBounds(0,0,1600,900);
-	    add(l1);
+	    pause_img.setBounds(0,0,1600,900);
+	    add(pause_img);
 	    
 	    this.addKeyListener(new AL());
 	    setAlwaysOnTop(true);
@@ -83,6 +84,7 @@ public class Menus extends JFrame {
 		{
 			if (e.getKeyCode() == KeyEvent.VK_SPACE)
 			{
+				pause_img.setVisible(false);
 				dispose();
 				pause = false;
 			}

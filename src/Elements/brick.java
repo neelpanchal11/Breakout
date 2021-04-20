@@ -18,7 +18,7 @@ public class brick
 		state = true;
 	}
 	
-	public void draw(Graphics g)
+	public void draw(Graphics g)//, Color colour )
 	{
 		
 		if (state)

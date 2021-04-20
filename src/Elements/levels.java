@@ -1,4 +1,5 @@
 package Elements;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
@@ -34,7 +35,7 @@ public class levels
 	}
 	public void draw(Graphics g)
 	{
-	
+		Color color;
 		for (int i = 0; i < row; i++) {
 
             for (int j = 0; j < col; j++) {

@@ -19,6 +19,7 @@ public class levels
 	}
 	public void generate()
 	{
+		
         for (int i = 0; i < row; i++) {
 
             for (int j = 0; j < col; j++) {
@@ -37,12 +38,14 @@ public class levels
 	{
 		Color color;
 		for (int i = 0; i < row; i++) {
-
-            for (int j = 0; j < col; j++) {
+			
+			color = new Color(90+10*i,90+10*i,195+10*i);
+            
+			for (int j = 0; j < col; j++) {
             	
             	if(pattern[i][j])
             	{
-            	bricks[i][j].draw(g);
+            	bricks[i][j].draw(g,color);
             	}
             }
         }

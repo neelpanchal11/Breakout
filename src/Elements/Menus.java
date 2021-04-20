@@ -53,14 +53,14 @@ public class Menus extends JFrame {
 	{
 		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
 	    pause = true;
-		setLocation(0,25);
+		setLocation(0,0);
 	    setSize(w,h);
 	    setUndecorated(true);
 	    getContentPane().setBackground(Color.BLACK);
 	    setOpacity(0.5f);
 	    setLayout(null);
 	    setVisible(true);
-	    pause_img.setBounds(0,0,1600,900);
+	    pause_img.setBounds(0,0,w,h);
 	    add(pause_img);
 	    
 	    this.addKeyListener(new AL());

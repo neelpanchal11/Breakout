@@ -18,12 +18,12 @@ public class brick
 		state = true;
 	}
 	
-	public void draw(Graphics g)//, Color colour )
+	public void draw(Graphics g, Color color )
 	{
 		
 		if (state)
 		{
-		g.setColor(new Color(150,150,255));
+		g.setColor(color);
 		g.fillRect(this.x, this.y, w, h);
 		}
 	}

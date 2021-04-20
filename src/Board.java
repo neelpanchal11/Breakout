@@ -133,7 +133,7 @@ public class Board extends JPanel {
 	{
 		start_game.setBounds(0,0,w,h);
 		start_game.setFont(new Font("Verdana", Font.BOLD, 80));
-		//start_game.setBackground(new Color(0,0,0));
+		start_game.setBackground(new Color(0,0,0,0));
 		start_game.setOpaque(false);
 		start_game.setVisible(true);
 	    add(start_game);

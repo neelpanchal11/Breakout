@@ -38,10 +38,12 @@ public class runfile{
 	{
 		
 		String lev_arr[] = {"Level 1","Level 2","Level 3","Level 4"};
-		JButton exit = new JButton(new ImageIcon("sprites\\exit.jpg"));
+		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev = new JLabel(new ImageIcon("sprites\\level.jpg"));	
+		JLabel atari = new JLabel(new ImageIcon("sprites\\welcome.png"));
 		level = new JComboBox(lev_arr);
+		
 		welcome = new JFrame();
 		
 		welcome.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -50,12 +52,14 @@ public class runfile{
 		welcome.setLayout(null);
 		welcome.setVisible(true);
 		
+		atari.setBounds(250, 200, 1030, 300);
 		lev.setBounds(650,720,200,50);
 		lev.setVisible(true);
-		start.setBounds(650,640,200,50);
+		start.setBounds(400,720,200,50);
 		level.setBounds(650,720,200,50);
-		exit.setBounds(650,800,200,50);	
+		exit.setBounds(900,720,200,50);	
 
+		welcome.add(atari);
 		welcome.add(lev);
 		welcome.add(start);
 		welcome.add(level);
@@ -72,6 +76,7 @@ public class runfile{
 		
 		window.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		window.setUndecorated(true);
 		window.setTitle("ATARI BREAKOUT COPY");
 		window.setVisible(true);
 

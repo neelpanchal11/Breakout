@@ -17,15 +17,15 @@ public class Menus extends JFrame {
 	    
 	    if (won)
 	    {
-	    	l1 = new JLabel(new ImageIcon("sprites\\game over.jpeg"));
+	    	l1 = new JLabel(new ImageIcon("sprites\\win.png"));
 	    	l2 = new JLabel();
 	    }else
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\me.jpg"));
 	    	l2 = new JLabel(new ImageIcon("sprites\\lose.jpg"));
 	    }
-	    JButton reset = new JButton(new ImageIcon("sprites\\reset.jpg"));
-	    JButton exit = new JButton(new ImageIcon("sprites\\exit.jpg"));
+	    JButton reset = new JButton(new ImageIcon("sprites\\restart.jpg"));
+	    JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 	    
 	    reset.setBounds(280,580,200,60);
 	    exit.setBounds(280,650,200,50);
@@ -85,12 +85,14 @@ public class Menus extends JFrame {
 		{
 			if (e.getKeyCode() == KeyEvent.VK_SPACE)
 			{
-
 				dispose();
 				pause = false;
-				
 			}
 			
+			if (e.getKeyCode() == KeyEvent.VK_ESCAPE)
+			{
+				System.exit(0);	
+			}
 		}
 	}
 	

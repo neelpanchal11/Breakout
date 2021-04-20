@@ -8,7 +8,7 @@ public class paddle
 
 	  static public int w = 250;
 	  int h = 25;
-	  int step= 15;
+	  int step= 35;
 	  
 	  public int x,y;
 	  

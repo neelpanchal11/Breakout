@@ -37,7 +37,7 @@ public class runfile{
 	public runfile()
 	{
 		
-		String lev_arr[] = {"Level 1","Level 2","Level 3","Level 4"};
+		String lev_arr[] = {"Demo","Level 1","Level 2","Level 3","Level 4","Level 5","Level 6"};
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev = new JLabel(new ImageIcon("sprites\\level.jpg"));	

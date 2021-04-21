@@ -15,14 +15,17 @@ public class sound {
 		file = new File(loc);
 		
 		try {
+			
 			audio = AudioSystem.getAudioInputStream(file);
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.start();
-				if (loop) {
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-				}
-		} catch (UnsupportedAudioFileException e) {
+			if (loop)
+			{
+				clip.loop(Clip.LOOP_CONTINUOUSLY);
+			}
+		}
+		catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {

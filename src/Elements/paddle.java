@@ -6,11 +6,10 @@ import java.awt.event.KeyEvent;
 public class paddle
 {
 
-	  static public int w = 250;
+	  public int x,y;
+	  public static int w = 250;
 	  int h = 25;
 	  int step= 35;
-	  
-	  public int x,y;
 	  
 	  public paddle(int x, int y) 
 	  {

@@ -39,11 +39,13 @@ public class levels
 	public void draw(Graphics g)
 	{
 		Color color;
-		for (int i = 0; i < row; i++) {
+		for (int i = 0; i < row; i++)
+		{
 			
 			color = new Color(90+10*i,90+10*i,195+10*i);
             
-			for (int j = 0; j < col; j++) {
+			for (int j = 0; j < col; j++)
+			{
             	
             	if(pattern[i][j])
             	{
@@ -53,23 +55,24 @@ public class levels
         }
 	}
 
-	public byte BrickColision(int ballx, int bally, int ballr) 
+	public boolean[] BrickColision(int ballx, int bally, int ballr) 
 	{
+		boolean[] returning = {false, false}; // {vertical col, horizontal col}
 		
-		for (int i = 0; i < row; i++) {
-
-            for (int j = 0; j < col; j++) {
-            	
+		for (int i = 0; i < row; i++)
+		{
+            for (int j = 0; j < col; j++)
+            {   	
             	if(pattern[i][j] && bricks[i][j].state)
-            	{
-            	
+            	{            	
             		if(bricks[i][j].x < ballx + ballr && bricks[i][j].x + bricks[i][j].w > ballx) // Vertical Collision
             		{
             			
             			if (bally + ballr == bricks[i][j].y || bally == bricks[i][j].y + bricks[i][j].h )
             			{
+            				sound brick_hit = new sound("sounds\\brick_hit_v.wav");
             				bricks[i][j].state = false;
-            				return 1;
+            				returning[0] = true;
             			}
             			
             		}
@@ -77,22 +80,27 @@ public class levels
         			{
         				if (ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w )
         				{
+        					sound brick_hit = new sound("sounds\\brick_hit.wav");
         					bricks[i][j].state = false;
-        					return -1;        			
+            				returning[1] = true;    
         				}
         			}
         			
-        			if(ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w) // Corner Collision
+        			if(ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w)
+        			{ // Corner Collision
         				if(bally + ballr == bricks[i][j].y || bally == bricks[i][j].y + bricks[i][j].h)
         				{
+        					sound brick_hit = new sound("sounds\\brick_hit_v.wav");
         					bricks[i][j].state = false;
-        					return 2;       
+            				returning[0] = true;
+            				returning[1] = true;   
         				}
+        			}
             	}
             }
         }
 	
-	return 0;
+	return returning;
 	}
 	
 	public byte numBrick()

@@ -13,7 +13,7 @@ public class Board extends JPanel {
 	boolean reset = false;
 	int lev_no;
 	int numBrick;
-	sound bg;
+	bg_music bg;
 	
 	Image canvas;
 	paddle pad1;
@@ -24,7 +24,7 @@ public class Board extends JPanel {
 	JLabel start_game;
 	levels lev1;
 	
-	Board(int w, int h, int lev_no, sound bg)
+	Board(int w, int h, int lev_no, bg_music bg)
 	{	
 		this.w= w;
 		this.h = h;
@@ -35,6 +35,7 @@ public class Board extends JPanel {
 		score_disp = new JLabel();
 		start_game = new JLabel(new ImageIcon("sprites\\start.jpg"));
 		startgame();
+		
 		lev1 = new levels(6,9, lev_no);
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
@@ -81,7 +82,7 @@ public class Board extends JPanel {
 			}
 			try
 			{
-				Thread.sleep(3); 
+				Thread.sleep(2); 
 			}
 			catch (InterruptedException e)
 			{
@@ -97,17 +98,10 @@ public class Board extends JPanel {
 		public void keyPressed(KeyEvent e) 
 		{	
 			
-			if (e.getKeyCode() == KeyEvent.VK_M)
+			if(!pause&&!end) // Paddle Motion
 			{
-			
-				if(bg.clip.isActive())
-				{
-				bg.stop();
-				}
-				else
-				{
-					bg.clip.start();
-				}
+				pad1.keyPress(e,w);	
+				repaint();
 			}
 			
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) // PAUSE GAME
@@ -119,12 +113,7 @@ public class Board extends JPanel {
 				}
 			}
 			
-			if(!pause&&!end) // START GAME
-			{
-			pad1.keyPress(e,w);	
-			repaint();
-			}
-			if (e.getKeyCode() == KeyEvent.VK_ENTER)
+			if (e.getKeyCode() == KeyEvent.VK_ENTER) // Start game
 			{
 				if (pause && !end) 
 				{
@@ -132,6 +121,7 @@ public class Board extends JPanel {
 					pause = false;
 				}
 			}
+		
 		}
 	}	
 	
@@ -158,79 +148,28 @@ public class Board extends JPanel {
 	
 	public void collisionCheck() 
 	{
-		if (ball1.x + ball1.r >= w || ball1.x <= 0)
-		{
-			ball1.east = !ball1.east;		
-		}
 		
-		if ( ball1.y >= h) // GAME LOST
-		{
-			bg.stop();
-			sound lose_sound = new sound("sounds\\lose.wav", false);
-			end = true;
-			menu.endgame(false); //method for end menu
-		}
-		
-		if ((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w))
-		{
-			sound paddle_hit = new sound("sounds\\paddle_hit.wav",false);
-			ball1.south = false;
-		}
-		
-		if (ball1.y <= 0)
-		{
-			ball1.south = !ball1.south;
-		}
-		
+		ball1.bounce_h(ball1.x + ball1.r >= w || ball1.x <= 0);		
+		ball1.bounce_v(ball1.y <= 0);
+		ball1.paddle_hit((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w));
+			
 		if (ball1.y < 600) 
 		{
 		
-			byte side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
+			boolean[] side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
+			score = (byte) (score + (side[0]||side[1]?1:0));
+			ball1.bounce_v(side[0]);
+			ball1.bounce_h(side[1]);
+		
+		}
+		
+		if ( ball1.y >= h || numBrick == score) // GAME END
+		{
 			
-			if (side == -1)
-			{
-				ball1.east = !ball1.east;
-				score++;
-				sound brick_hit = new sound("sounds\\brick_hit.wav",false);
-				if (numBrick == score)
-				{
-					bg.stop();
-					sound win_sound = new sound("sounds\\win.wav",false);
-					end = true;
-					menu.endgame(true);
-				}
-			}
-			
-			else if (side == 1)
-			{
-				ball1.south = !ball1.south;
-				score++;
-				sound brick_hit = new sound("sounds\\brick_hit_v.wav",false);
-				
-				if (numBrick == score)
-				{
-					bg.stop();
-					sound win_sound = new sound("sounds\\win.wav",false);
-					end = true;
-					menu.endgame(true);
-				}
-				
-			}else if (side == 2)
-			{
-				ball1.south = !ball1.south;
-				ball1.east = !ball1.east;
-				score++;
-				sound brick_hit = new sound("sounds\\brick_hit_v.wav",false);
-				
-				if (numBrick == score)
-				{
-					bg.stop();
-					sound win_sound = new sound("sounds\\win.wav",false);
-					end = true;
-					menu.endgame(true);
-				}
-			}
+			bg.stop();
+			end = true;
+			menu.endgame(numBrick == score); //method for end menu
+		
 		}
 	}
-
 }

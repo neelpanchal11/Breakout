@@ -8,21 +8,25 @@ public class runfile{
 
 	JComboBox levelbox;
 	JFrame welcome;
+	
 	static boolean reset = true;
 	static boolean on = false; 
-	static sound bg;
+	static bg_music bg;
 	static JFrame window;
 	static JButton start;
 	static int lev_no;
+	
 	
 	public static void main (String[] args) 
 	{	
 		while (true)
 		{
-			if(reset) {
-			runfile run = new runfile();
-			reset = false;
-			bg = new sound("sounds//bg.wav", true);
+			if(reset)
+			{	
+				runfile run = new runfile();
+				reset = false;
+				bg = new bg_music();
+				bg.start();
 			}
 			if(on)
 			{				
@@ -31,6 +35,7 @@ public class runfile{
 				on = false;
 				reset = true;
 			}
+			
 			System.out.println(); // I DONT EVEN KNOW
 		}
 	}
@@ -42,7 +47,7 @@ public class runfile{
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
-		JLabel atari = new JLabel(new ImageIcon("sprites\\welcome.png"));
+		JLabel title = new JLabel(new ImageIcon("sprites\\welcome.png"));
 		
 		levelbox = new JComboBox(lev_arr);
 		
@@ -60,14 +65,14 @@ public class runfile{
 		welcome.setLayout(null);
 		welcome.setVisible(true);
 		
-		atari.setBounds(250, 200, 1030, 300);
+		title.setBounds(165, 200, 1200, 300);
 		lev_label.setBounds(650,720,220,70);
 		lev_label.setVisible(true);
 		start.setBounds(400,720,220,70);
 		levelbox.setBounds(650,720,220,70);
 		exit.setBounds(900,720,220,70);	
 
-		welcome.add(atari);
+		welcome.add(title);
 		welcome.add(lev_label);
 		welcome.add(start);
 		welcome.add(levelbox);

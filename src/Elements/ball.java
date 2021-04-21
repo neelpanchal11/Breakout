@@ -14,7 +14,7 @@ public class ball
 		public int y;
 
 		int step = 1;
-		public boolean east = false, south = false;
+		boolean east = false, south = false;
 		public static int r = 36;
 
 		
@@ -38,4 +38,22 @@ public class ball
 			this.y = this.y + (south?step:-step);
 		}
 		
+		public void bounce_h(boolean trig)
+		{
+			east = !(!east ^ trig);
+		}
+		
+		public void bounce_v(boolean trig)
+		{
+			south = !(!south ^ trig);
+		}
+		
+		public void paddle_hit(boolean trig)
+		{
+			if (trig)
+			{
+			south = false;
+			sound paddle_hit = new sound("sounds\\paddle_hit.wav");
+			}
+		}
 }

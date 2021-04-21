@@ -12,7 +12,6 @@ public class brick
 	boolean state;
 	public brick(int x, int y)
 	{
-
 		this.x = x;
 		this.y = y;
 		state = true;
@@ -23,8 +22,9 @@ public class brick
 		
 		if (state)
 		{
-		g.setColor(color);
-		g.fillRect(this.x, this.y, w, h);
+			g.setColor(color);
+			g.fillRect(this.x, this.y, w, h);
 		}
 	}
+
 }

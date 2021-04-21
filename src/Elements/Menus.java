@@ -17,12 +17,14 @@ public class Menus extends JFrame {
 	    if (won)
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\finished.jpeg"));
+	    	sound win_sound = new sound("sounds\\win.wav");
 	    }else
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\me.jpg"));
 	    	l2 = new JLabel(new ImageIcon("sprites\\lose.jpg"));
 		    l2.setBounds(130,20,500,100);
 		    add(l2);
+		    sound lose_sound = new sound("sounds\\lose.wav");
 	    }
 	    JButton reset = new JButton(new ImageIcon("sprites\\menu.jpg"));
 	    JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
@@ -44,7 +46,7 @@ public class Menus extends JFrame {
 	    add(exit);
 	    add(l1);
 
-
+	    
 	    setAlwaysOnTop(true);
 	}
 	

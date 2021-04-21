@@ -96,6 +96,20 @@ public class Board extends JPanel {
 		@Override
 		public void keyPressed(KeyEvent e) 
 		{	
+			
+			if (e.getKeyCode() == KeyEvent.VK_M)
+			{
+			
+				if(bg.clip.isActive())
+				{
+				bg.stop();
+				}
+				else
+				{
+					bg.clip.start();
+				}
+			}
+			
 			if (e.getKeyCode() == KeyEvent.VK_SPACE) // PAUSE GAME
 			{
 				if (!pause&&!end) 

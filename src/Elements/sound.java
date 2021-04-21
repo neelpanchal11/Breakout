@@ -7,7 +7,7 @@ import javax.sound.sampled.*;
 
 public class sound {
 	File file;
-	Clip clip;
+	public Clip clip;
 	AudioInputStream audio;
 	public sound(String loc, boolean loop)
 	{

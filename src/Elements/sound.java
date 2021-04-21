@@ -8,16 +8,20 @@ import javax.sound.sampled.*;
 public class sound {
 	File file;
 	Clip clip;
-	public sound(String loc)
+	AudioInputStream audio;
+	public sound(String loc, boolean loop)
 	{
 		
 		file = new File(loc);
 		
 		try {
-			AudioInputStream audio = AudioSystem.getAudioInputStream(file);
+			audio = AudioSystem.getAudioInputStream(file);
 			clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.start();
+				if (loop) {
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+				}
 		} catch (UnsupportedAudioFileException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -44,5 +48,4 @@ public class sound {
 			    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
 			gainControl.setValue(-5.0f); 
 	}
-	
 }

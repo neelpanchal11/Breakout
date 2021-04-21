@@ -22,7 +22,7 @@ public class runfile{
 			if(reset) {
 			runfile run = new runfile();
 			reset = false;
-			bg = new sound("sounds//bg.wav");
+			bg = new sound("sounds//bg.wav", true);
 			}
 			if(on)
 			{				

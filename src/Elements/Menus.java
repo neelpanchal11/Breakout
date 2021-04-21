@@ -8,6 +8,7 @@ public class Menus extends JFrame {
 	boolean pause = true;
 	boolean reset = false;
 	JLabel pause_img;
+	bg_music bg;
 	
 	public void endgame(boolean won)
 	{
@@ -51,7 +52,7 @@ public class Menus extends JFrame {
 	}
 	
 	
-	public void pausegame(int w, int h)
+	public void pausegame(int w, int h, bg_music bg)
 	{
 		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
 	    pause = true;
@@ -65,6 +66,7 @@ public class Menus extends JFrame {
 	    pause_img.setBounds(0,0,w,h);
 	    add(pause_img);
 	    
+	    this.bg = bg;
 	    this.addKeyListener(new AL());
 	    setAlwaysOnTop(true);
 	}

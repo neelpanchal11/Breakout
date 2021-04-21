@@ -109,7 +109,7 @@ public class Board extends JPanel {
 				if (!pause&&!end) 
 				{
 					pause = true;
-					menu.pausegame(w,h);
+					menu.pausegame(w,h,bg);
 				}
 			}
 			

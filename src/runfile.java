@@ -8,6 +8,7 @@ public class runfile{
 
 	JComboBox levelbox;
 	JFrame welcome;
+	JButton mute_button;
 	
 	static boolean reset = true;
 	static boolean on = false; 
@@ -15,17 +16,19 @@ public class runfile{
 	static JFrame window;
 	static JButton start;
 	static int lev_no;
+	//boolean is_mute = false;
 	
 	
 	public static void main (String[] args) 
 	{	
+		bg = new bg_music();
+		
 		while (true)
 		{
 			if(reset)
 			{	
 				runfile run = new runfile();
 				reset = false;
-				bg = new bg_music();
 				bg.start();
 			}
 			if(on)
@@ -48,6 +51,7 @@ public class runfile{
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
 		JLabel title = new JLabel(new ImageIcon("sprites\\welcome.png"));
+		mute_button = new JButton(new ImageIcon("sprites\\unmuted.jpg"));
 		
 		levelbox = new JComboBox(lev_arr);
 		
@@ -55,7 +59,8 @@ public class runfile{
 		levelbox.setUI(new javax.swing.plaf.metal.MetalComboBoxUI()
 			{public void layoutComboBox(Container parent, MetalComboBoxLayoutManager manager) 
 				{super.layoutComboBox(parent, manager);
-				 arrowButton.setBounds(0,0,0,0);}});
+				 arrowButton.setBounds(0,0,0,0);
+				 }});
 		
 		welcome = new JFrame();
 		
@@ -69,15 +74,18 @@ public class runfile{
 		lev_label.setBounds(650,720,220,70);
 		lev_label.setVisible(true);
 		start.setBounds(400,720,220,70);
+		mute_button.setBounds(1540,10,50,50);
 		levelbox.setBounds(650,720,220,70);
 		exit.setBounds(900,720,220,70);	
 
+		welcome.add(mute_button);
 		welcome.add(title);
 		welcome.add(lev_label);
 		welcome.add(start);
 		welcome.add(levelbox);
 		welcome.add(exit);
 		
+		mute_button.addActionListener(new mute());
 		start.addActionListener(new start());
 		exit.addActionListener(new exit());
 		
@@ -123,6 +131,15 @@ public class runfile{
 		public void actionPerformed(ActionEvent e)
 		{
 			System.exit(0);
+		}
+	}
+	
+	public class mute implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			bg.mute(mute_button);
 		}
 	}
 }

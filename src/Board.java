@@ -104,7 +104,7 @@ public class Board extends JPanel {
 				repaint();
 			}
 			
-			if (e.getKeyCode() == KeyEvent.VK_SPACE) // PAUSE GAME
+			if (e.getKeyCode() == KeyEvent.VK_SHIFT) // PAUSE GAME
 			{
 				if (!pause&&!end) 
 				{

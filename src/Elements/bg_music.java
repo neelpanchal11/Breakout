@@ -3,11 +3,14 @@ package Elements;
 import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 
 
 public class bg_music {
 	
 	Clip clip;
+	AudioInputStream audio;
 	boolean mute = false;
 	
 	public bg_music()
@@ -18,9 +21,8 @@ public class bg_music {
 		try
 		{
 			
-			AudioInputStream audio = AudioSystem.getAudioInputStream(file);
+			audio = AudioSystem.getAudioInputStream(file);
 			clip = AudioSystem.getClip();
-			clip.open(audio);
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
 			// TODO Auto-generated catch block
 		}
@@ -42,6 +44,15 @@ public class bg_music {
 	{
 		if (!mute)
 		{
+		try {
+			clip.open(audio);
+		} catch (LineUnavailableException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		clip.start();
 		}
 	}
@@ -57,16 +68,18 @@ public class bg_music {
 		gainControl.setValue(-6.0f); 
 	}
 
-	public void mute()
+	public void mute(JButton button)
 	{
 		
 		if(mute)
 		{
 			clip.start();
+			button.setIcon(new ImageIcon("sprites\\unmuted.jpg"));
 		}
 		else
 		{
 			clip.stop();
+			button.setIcon(new ImageIcon("sprites\\muted.jpg"));
 		}
 		mute = !mute;		
 	}

@@ -8,6 +8,7 @@ public class Menus extends JFrame {
 	boolean pause = true;
 	boolean reset = false;
 	JLabel pause_img;
+	JButton mute_button;
 	bg_music bg;
 	
 	public void endgame(boolean won)
@@ -19,7 +20,9 @@ public class Menus extends JFrame {
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\finished.jpeg"));
 	    	sound win_sound = new sound("sounds\\win.wav");
-	    }else
+	    }
+	    
+	    else
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\me.jpg"));
 	    	l2 = new JLabel(new ImageIcon("sprites\\lose.jpg"));
@@ -32,10 +35,11 @@ public class Menus extends JFrame {
 	    
 	    reset.setBounds(280,575,220,70);
 	    exit.setBounds(280,655,220,70);
-	    
 	    l1.setBounds(90,120,600,440);
+	    
 	    exit.addActionListener(new BL());
 	    reset.addActionListener(new RL());
+	    
 	    setOpacity(1f);
 	    setUndecorated(true);
 	    getContentPane().setBackground(Color.BLACK);
@@ -55,6 +59,7 @@ public class Menus extends JFrame {
 	public void pausegame(int w, int h, bg_music bg)
 	{
 		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
+		mute_button = new JButton(new ImageIcon("sprites\\unmuted.jpg"));
 	    pause = true;
 		setLocation(0,0);
 	    setSize(w,h);
@@ -64,9 +69,14 @@ public class Menus extends JFrame {
 	    setLayout(null);
 	    setVisible(true);
 	    pause_img.setBounds(0,0,w,h);
+	    mute_button.setBounds(1540,10,50,50);
+	    mute_button.addKeyListener(new AL());
 	    add(pause_img);
+	    add(mute_button);
 	    
 	    this.bg = bg;
+	    
+	    mute_button.addActionListener(new mute());
 	    this.addKeyListener(new AL());
 	    setAlwaysOnTop(true);
 	}
@@ -87,7 +97,7 @@ public class Menus extends JFrame {
 		public void keyPressed(KeyEvent e)
 		{
 			
-			if (e.getKeyCode() == KeyEvent.VK_SPACE)
+			if (e.getKeyCode() == KeyEvent.VK_SHIFT)
 			{
 				pause_img.setVisible(false);
 				dispose();
@@ -115,5 +125,14 @@ public class Menus extends JFrame {
 			  	dispose();
 				reset = true;			
 			}
+	}
+	
+	public class mute implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			bg.mute(mute_button);
+		}
 	}
 }

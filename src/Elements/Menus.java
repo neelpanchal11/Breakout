@@ -8,7 +8,6 @@ public class Menus extends JFrame {
 	boolean pause = true;
 	boolean reset = false;
 	JLabel pause_img;
-	JButton mute_button;
 	bg_music bg;
 	
 	public void endgame(boolean won)
@@ -59,7 +58,6 @@ public class Menus extends JFrame {
 	public void pausegame(int w, int h, bg_music bg)
 	{
 		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
-		mute_button = new JButton(new ImageIcon("sprites\\unmuted.jpg"));
 	    pause = true;
 		setLocation(0,0);
 	    setSize(w,h);
@@ -69,14 +67,13 @@ public class Menus extends JFrame {
 	    setLayout(null);
 	    setVisible(true);
 	    pause_img.setBounds(0,0,w,h);
-	    mute_button.setBounds(1540,10,50,50);
-	    mute_button.addKeyListener(new AL());
+		bg.mute_button.setBounds(25*w/26,h/80,50,50);
+	    bg.mute_button.addKeyListener(new AL());
 	    add(pause_img);
-	    add(mute_button);
+	    add(bg.mute_button);
 	    
 	    this.bg = bg;
 	    
-	    mute_button.addActionListener(new mute());
 	    this.addKeyListener(new AL());
 	    setAlwaysOnTop(true);
 	}
@@ -125,14 +122,5 @@ public class Menus extends JFrame {
 			  	dispose();
 				reset = true;			
 			}
-	}
-	
-	public class mute implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			bg.mute(mute_button);
-		}
 	}
 }

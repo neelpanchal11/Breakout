@@ -8,7 +8,7 @@ public class runfile{
 
 	JComboBox levelbox;
 	JFrame welcome;
-	JButton mute_button;
+;
 	
 	static boolean reset = true;
 	static boolean on = false; 
@@ -51,7 +51,6 @@ public class runfile{
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
 		JLabel title = new JLabel(new ImageIcon("sprites\\welcome.png"));
-		mute_button = new JButton(new ImageIcon("sprites\\unmuted.jpg"));
 		
 		levelbox = new JComboBox(lev_arr);
 		
@@ -70,22 +69,25 @@ public class runfile{
 		welcome.setLayout(null);
 		welcome.setVisible(true);
 		
+		int w = welcome.getWidth();
+		int h = welcome.getHeight();
+		
+		
 		title.setBounds(165, 200, 1200, 300);
 		lev_label.setBounds(650,720,220,70);
 		lev_label.setVisible(true);
 		start.setBounds(400,720,220,70);
-		mute_button.setBounds(1540,10,50,50);
+		bg.mute_button.setBounds(25*w/26,h/80,50,50);
 		levelbox.setBounds(650,720,220,70);
 		exit.setBounds(900,720,220,70);	
 
-		welcome.add(mute_button);
+		welcome.add(bg.mute_button);
 		welcome.add(title);
 		welcome.add(lev_label);
 		welcome.add(start);
 		welcome.add(levelbox);
 		welcome.add(exit);
 		
-		mute_button.addActionListener(new mute());
 		start.addActionListener(new start());
 		exit.addActionListener(new exit());
 		
@@ -134,12 +136,5 @@ public class runfile{
 		}
 	}
 	
-	public class mute implements ActionListener
-	{
-		@Override
-		public void actionPerformed(ActionEvent e)
-		{
-			bg.mute(mute_button);
-		}
-	}
+
 }

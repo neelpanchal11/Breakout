@@ -1,5 +1,7 @@
 package Elements;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import javax.sound.sampled.*;
@@ -12,10 +14,11 @@ public class bg_music {
 	Clip clip;
 	AudioInputStream audio;
 	boolean mute = false;
+	public JButton mute_button = new JButton(new ImageIcon("sprites\\unmuted.jpg"));
 	
 	public bg_music()
 	{
-		
+		mute_button.addActionListener(new mute());
 		File file = new File("sounds//bg.wav");
 		
 		try
@@ -24,6 +27,7 @@ public class bg_music {
 			audio = AudioSystem.getAudioInputStream(file);
 			clip = AudioSystem.getClip();
 			clip.loop(Clip.LOOP_CONTINUOUSLY);
+			clip.open(audio);
 			// TODO Auto-generated catch block
 		}
 		catch (UnsupportedAudioFileException e)
@@ -42,17 +46,9 @@ public class bg_music {
 	
 	public void start()
 	{
+
 		if (!mute)
 		{
-		try {
-			clip.open(audio);
-		} catch (LineUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		clip.start();
 		}
 	}
@@ -68,19 +64,28 @@ public class bg_music {
 		gainControl.setValue(-6.0f); 
 	}
 
-	public void mute(JButton button)
+	public void mute()
 	{
 		
 		if(mute)
 		{
 			clip.start();
-			button.setIcon(new ImageIcon("sprites\\unmuted.jpg"));
+			mute_button.setIcon(new ImageIcon("sprites\\unmuted.jpg"));
 		}
 		else
 		{
 			clip.stop();
-			button.setIcon(new ImageIcon("sprites\\muted.jpg"));
+			mute_button.setIcon(new ImageIcon("sprites\\muted.jpg"));
 		}
 		mute = !mute;		
+	}
+	
+	public class mute implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			mute();
+		}
 	}
 }

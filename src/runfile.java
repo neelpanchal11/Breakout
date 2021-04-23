@@ -50,7 +50,7 @@ public class runfile{
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
-		JLabel title = new JLabel(new ImageIcon("sprites\\breakout.png"));
+		JLabel title = new JLabel(new ImageIcon("sprites\\welcome.png"));
 		
 		levelbox = new JComboBox(lev_arr);
 		

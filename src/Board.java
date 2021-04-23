@@ -7,7 +7,6 @@ public class Board extends JPanel {
 	
 	static int w;
 	static int h;
-	byte score = 0;
 	boolean pause = true;
 	boolean end = false;
 	boolean reset = false;
@@ -68,7 +67,7 @@ public class Board extends JPanel {
 			{
 				ball1.motion();
 				collisionCheck();
-				score_display(score);
+				score_display(lev1.score);
 				repaint();
 			}
 			else
@@ -157,18 +156,18 @@ public class Board extends JPanel {
 		{
 		
 			boolean[] side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
-			score = (byte) (score + (side[0]||side[1]?1:0));
+			//score = (byte) (score + (side[0]||side[1]?1:0));
 			ball1.bounce_v(side[0]);
 			ball1.bounce_h(side[1]);
 		
 		}
 		
-		if ( ball1.y >= h || numBrick == score) // GAME END
+		if ( ball1.y >= h || numBrick == lev1.score) // GAME END
 		{
 			
 			bg.stop();
 			end = true;
-			menu.endgame(numBrick == score); //method for end menu
+			menu.endgame(numBrick == lev1.score); //method for end menu
 		
 		}
 	}

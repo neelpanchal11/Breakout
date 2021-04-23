@@ -9,6 +9,7 @@ public class levels
 	brick[][] bricks;
 	boolean[][] pattern;
 	pattern pat = new pattern();
+	public byte score = 0;
 	
 	public levels(int row ,int col, int pat_no)
 	{
@@ -73,6 +74,7 @@ public class levels
             				sound brick_hit = new sound("sounds\\brick_hit_v.wav");
             				bricks[i][j].state = false;
             				returning[0] = true;
+            				score++;
             			}
             			
             		}
@@ -82,7 +84,8 @@ public class levels
         				{
         					sound brick_hit = new sound("sounds\\brick_hit.wav");
         					bricks[i][j].state = false;
-            				returning[1] = true;    
+            				returning[1] = true;  
+            				score++;
         				}
         			}
         			
@@ -93,7 +96,8 @@ public class levels
         					sound brick_hit = new sound("sounds\\brick_hit_v.wav");
         					bricks[i][j].state = false;
             				returning[0] = true;
-            				returning[1] = true;   
+            				returning[1] = true; 
+            				score++;
         				}
         			}
             	}

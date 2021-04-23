@@ -50,7 +50,7 @@ public class runfile{
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
-		JLabel title = new JLabel(new ImageIcon("sprites\\welcome.png"));
+		JLabel title = new JLabel(new ImageIcon("sprites\\breakout.png"));
 		
 		levelbox = new JComboBox(lev_arr);
 		
@@ -73,7 +73,7 @@ public class runfile{
 		int h = welcome.getHeight();
 		
 		
-		title.setBounds(165, 200, 1200, 300);
+		title.setBounds(180, 200, 1200, 400);
 		lev_label.setBounds(650,720,220,70);
 		lev_label.setVisible(true);
 		start.setBounds(400,720,220,70);

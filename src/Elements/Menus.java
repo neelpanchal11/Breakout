@@ -57,7 +57,7 @@ public class Menus extends JFrame {
 	
 	public void pausegame(int w, int h, bg_music bg)
 	{
-		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpeg"));
+		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpg"));
 	    pause = true;
 		setLocation(0,0);
 	    setSize(w,h);

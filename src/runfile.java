@@ -45,12 +45,13 @@ public class runfile{
 	
 	public runfile()
 	{
-	
 		String lev_arr[] = {"Demo","Level 1","Level 2","Level 3","Level 4","Level 5", "Level 6"};
 		JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
 		JButton start = new JButton(new ImageIcon("sprites\\start_button.jpg"));
 		JLabel lev_label = new JLabel(new ImageIcon("sprites\\level.jpg"));	
 		JLabel title = new JLabel(new ImageIcon("sprites\\welcome.png"));
+		JLabel name_sap = new JLabel("Neel Karia - 60001190033 || Parth Dundh - 60001190037 || Neel Panchal - 60001190034");
+
 		
 		levelbox = new JComboBox(lev_arr);
 		
@@ -62,7 +63,6 @@ public class runfile{
 				 }});
 		
 		welcome = new JFrame();
-		
 		welcome.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		welcome.setUndecorated(true);
 		welcome.getContentPane().setBackground(new Color(50,50,50));
@@ -72,7 +72,10 @@ public class runfile{
 		int w = welcome.getWidth();
 		int h = welcome.getHeight();
 		
-		
+		name_sap.setBounds(w/4,h-40,1000,20);
+		name_sap.setFont(new Font("Verdana", Font.PLAIN, 18));
+		name_sap.setForeground(new Color(253,188,4,120));
+
 		title.setBounds(180, 200, 1200, 400);
 		lev_label.setBounds(650,720,220,70);
 		lev_label.setVisible(true);
@@ -81,6 +84,7 @@ public class runfile{
 		levelbox.setBounds(650,720,220,70);
 		exit.setBounds(900,720,220,70);	
 
+		welcome.add(name_sap);
 		welcome.add(bg.mute_button);
 		welcome.add(title);
 		welcome.add(lev_label);

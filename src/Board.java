@@ -1,9 +1,15 @@
 import java.awt.*;
 import javax.swing.*;
+
 import Elements.*;
 import java.awt.event.*;
 
 public class Board extends JPanel {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	static int w;
 	static int h;
@@ -29,7 +35,7 @@ public class Board extends JPanel {
 		this.h = h;
 		this.lev_no = lev_no;
 		this.bg = bg;
-		
+		bg.volume();
 	
 		score_disp = new JLabel();
 		start_game = new JLabel(new ImageIcon("sprites\\start.jpg"));
@@ -45,6 +51,7 @@ public class Board extends JPanel {
 		this.setBounds(0,0,w,h);
 		this.setLayout(null);
 		this.setBackground(new Color(50,50,50));
+		this.addKeyListener(new AL());
 	
 	}
 	

@@ -13,7 +13,7 @@ public class ball
 		public int x;
 		public int y;
 
-		int step = 1;
+		public int step = 5;
 		boolean east = false, south = false;
 		public static int r = 36;
 

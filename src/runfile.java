@@ -9,20 +9,14 @@ public class runfile extends JFrame{
 	 */
 	private static final long serialVersionUID = -7141151800441150268L;
 	
+	static int w,h;
 	static Board game;
-	public static main_menu welcome;
-	static runfile run = null;
-	static boolean reset = true;
+	static main_menu welcome;
+	static runfile run;
+	
 	public static void main (String[] args) 
 	{	
-		
-//		while (true)
-//		{
-			run = new runfile();
-//			while(!welcome.on)
-//			{}			
-//			welcome.on = false;
-//		}
+		run = new runfile();
 	}
 	
 	public runfile()
@@ -33,20 +27,17 @@ public class runfile extends JFrame{
 		this.setVisible(true);
 		this.setTitle("ATRIA BREAKOUT");
 		
-		int w = this.getWidth();
-		int h = this.getHeight();
-		
+		w = this.getWidth();
+		h = this.getHeight();
 		welcome = new main_menu(w,h,this);
-		welcome.start.addActionListener(new start());
+		welcome.start.addActionListener(new start_button_AL());
+		
 		this.add(welcome);
-		
-		
-		
 		this.repaint();
 	}
 
 	
-	public static void start()
+	public static void start_game()
 	{		
 		run.remove(welcome);
 		int w = run.getWidth();
@@ -55,19 +46,14 @@ public class runfile extends JFrame{
 		run.add(game);
 		run.repaint();
 		game.requestFocus();
-		
-		//game.gameloop();
-		
 	}
-	public class start implements ActionListener
+	
+	public class start_button_AL implements ActionListener
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
-			welcome.lev_no = welcome.levelbox.getSelectedIndex();
-			welcome.on = true;
-
-			start();
+			start_game();
 		}
 	}
 

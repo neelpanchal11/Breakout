@@ -4,13 +4,15 @@ import javax.swing.*;
 import Elements.*;
 import java.awt.event.*;
 
-public class Board extends JPanel {
+public class Board extends JPanel implements ActionListener, KeyListener
+{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	Timer time;
 	static int w;
 	static int h;
 	boolean pause = true;
@@ -46,11 +48,14 @@ public class Board extends JPanel {
 		canvas = createImage(w,h);
 		lev1.generate();
 		numBrick = lev1.numBrick();
+		
+		time = new Timer(1,this);
+		time.start();
 
 		this.setBounds(0,0,w,h);
 		this.setLayout(null);
 		this.setBackground(new Color(50,50,50));
-		this.addKeyListener(new AL());
+		addKeyListener(this);
 	
 	}
 	
@@ -67,8 +72,7 @@ public class Board extends JPanel {
 	
 	public void gameloop() 
 	{
-		bg.volume();
-		while(true) 
+		
 		{
 			if(!pause&&!end)
 			{
@@ -82,54 +86,8 @@ public class Board extends JPanel {
 				pause = menu.resume();
 			}
 			
-			if (reset)
-			{
-				break;
-			}
-			try
-			{
-				Thread.sleep(2); 
-			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
-			reset = menu.re_check();
 		}
 	}
-	
-	public class AL extends KeyAdapter
-	{
-		@Override
-		public void keyPressed(KeyEvent e) 
-		{	
-			
-			if(!pause&&!end) // Paddle Motion
-			{
-				pad1.keyPress(e,w);	
-				repaint();
-			}
-			
-			if (e.getKeyCode() == KeyEvent.VK_SHIFT) // PAUSE GAME
-			{
-				if (!pause&&!end) 
-				{
-					pause = true;
-					menu.pausegame(w,h,bg);
-				}
-			}
-			
-			if (e.getKeyCode() == KeyEvent.VK_ENTER) // Start game
-			{
-				if (pause && !end) 
-				{
-					start_game.setVisible(false);
-					pause = false;
-				}
-			}
-		
-		}
-	}	
 	
 	public void score_display(byte score)
 	{
@@ -143,6 +101,7 @@ public class Board extends JPanel {
 	
 	public void startgame()
 	{
+		bg.volume();
 		start_game.setBounds(0,0,w,h);
 		start_game.setFont(new Font("Verdana", Font.BOLD, 80));
 		start_game.setBackground(new Color(0,0,0,0));
@@ -177,5 +136,51 @@ public class Board extends JPanel {
 			menu.endgame(numBrick == lev1.score); //method for end menu
 		
 		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		time.start();
+		gameloop();
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(!pause&&!end) // Paddle Motion
+		{
+			pad1.keyPress(e,w);	
+		//	repaint();
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_SHIFT) // PAUSE GAME
+		{
+			if (!pause&&!end) 
+			{
+				pause = true;
+				menu.pausegame(w,h,bg);
+			}
+		}
+		
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) // Start game
+		{
+			if (pause && !end) 
+			{
+				start_game.setVisible(false);
+				pause = false;
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

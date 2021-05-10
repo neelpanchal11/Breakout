@@ -40,10 +40,6 @@ public class runfile extends JFrame{
 		welcome.start.addActionListener(new start());
 		this.add(welcome);
 		
-		game = new Board(w,h,welcome.lev_no, welcome.bg);
-		game.setVisible(false);
-		this.add(game);
-		
 		
 		
 		this.repaint();
@@ -53,11 +49,13 @@ public class runfile extends JFrame{
 	public static void start()
 	{		
 		run.remove(welcome);
-		game.setVisible(true);
+		int w = run.getWidth();
+		int h = run.getHeight();
+		game = new Board(w,h,welcome.lev_no, welcome.bg);
+		run.add(game);
 		run.repaint();
 		game.requestFocus();
 		
-		//game.startgame();
 		//game.gameloop();
 		
 	}

@@ -5,12 +5,12 @@ import java.awt.Rectangle;
 
 public class levels 
 {	
-	int row,col;
+	int row,col, originX = 120 ,originY = 85, spacingX = 150, spacingY = 65;
 	brick[][] bricks;
 	boolean[][] pattern;
 	pattern pat = new pattern();
 	public byte score = 0;
-	
+	boolean[] returning = {false,false}; // {Vertical col, Horizontal col}
 	public levels(int row ,int col, int pat_no)
 	{
 		this.row = row;
@@ -26,13 +26,8 @@ public class levels
 
             for (int j = 0; j < col; j++)
             {
-            	
-            	if(pattern[i][j])
-            	{
-            		bricks[i][j] = new brick(j * 150 + 120, i * 65 + 85);
-            
-            	}
-        
+            		bricks[i][j] = new brick(j * spacingX + originX, i * spacingY + originY);
+            		bricks[i][j].state = pattern[i][j];
             }
 	
         }
@@ -47,65 +42,61 @@ public class levels
             
 			for (int j = 0; j < col; j++)
 			{
-            	
-            	if(pattern[i][j])
-            	{
             	bricks[i][j].draw(g,color);
-            	}
             }
         }
 	}
 
-	public boolean[] BrickColision(int ballx, int bally, int ballr) 
+	public boolean[] BrickColision(int ballx, int bally, int balld, int ballstep) 
 	{
-		boolean[] returning = {false, false}; // {vertical col, horizontal col}
+		returning[0] = false;
+		returning[1] = false;
 		
-		for (int i = 0; i < row; i++)
+		int diffX = ballx - originX;
+		int diffY = bally - originY;
+		
+		if(diffX + balld < 0 || diffY + balld < 0 || diffX > spacingX*col || diffY > spacingY*row)
 		{
-            for (int j = 0; j < col; j++)
-            {   	
-            	if(pattern[i][j] && bricks[i][j].state)
-            	{            	
-            		if(bricks[i][j].x < ballx + ballr && bricks[i][j].x + bricks[i][j].w > ballx) // Vertical Collision
-            		{
-            			
-            			if (bally + ballr == bricks[i][j].y || bally == bricks[i][j].y + bricks[i][j].h )
-            			{
-            				sound brick_hit = new sound("sounds\\brick_hit_v.wav");
-            				bricks[i][j].state = false;
-            				returning[0] = true;
-            				score++;
-            			}
-            			
-            		}
-        			if(bricks[i][j].y < bally + ballr && bricks[i][j].y + bricks[i][j].h > bally) // Horizontal Collision
-        			{
-        				if (ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w )
-        				{
-        					sound brick_hit = new sound("sounds\\brick_hit.wav");
-        					bricks[i][j].state = false;
-            				returning[1] = true;  
-            				score++;
-        				}
-        			}
-        			
-        			if(ballx +ballr == bricks[i][j].x || ballx == bricks[i][j].x + bricks[i][j].w)
-        			{ // Corner Collision
-        				if(bally + ballr == bricks[i][j].y || bally == bricks[i][j].y + bricks[i][j].h)
-        				{
-        					sound brick_hit = new sound("sounds\\brick_hit_v.wav");
-        					bricks[i][j].state = false;
-            				returning[0] = true;
-            				returning[1] = true; 
-            				score++;
-        				}
-        			}
-            	}
-            }
-        }
-	
-	return returning;
+			return returning;
+		}
+		
+		int i[] = {limit(diffY/spacingY,row),limit((diffY + balld)/spacingY,row)},
+			j[] = {limit(diffX/spacingX,col),limit((diffX + balld)/spacingX,col)};
+		
+		for (int k = 0; k<2 - (i[0] == i[1]?1:0); k++)
+		{
+			for (int l = 0; l<2 - (j[0] == j[1]?1:0); l++)
+			{
+		collision_conditions(i[k],j[l],ballx, bally, balld, ballstep);
+			}
+		}
+		
+		boolean multi_collision[]= 
+			{
+					bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
+					bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state
+		};
+		
+		returning[0]= returning[0] && (multi_collision[0] || !multi_collision[1]);
+		returning[1]= returning[1] && (multi_collision[1] || !multi_collision[0]);
+		//score = (byte) (score + (returning[0]||returning[1]?1:0));
+		return returning;
 	}
+	
+	void collision_conditions(int i,int j, int ballx, int bally, int balld, int ballstep)
+	{
+
+				brick col_brick = bricks[i][j];
+				
+				if(col_brick.state)
+				{            	   			
+    				col_brick.state = false;
+    				score++;
+    				returning[0] = bally + balld - ballstep < col_brick.y || bally + ballstep > col_brick.y + col_brick.h;
+    				returning[1] = ballx +balld - ballstep < col_brick.x || ballx + ballstep > col_brick.x + col_brick.w;  
+    				sound brick_hit = returning[0]?new sound("sounds\\brick_hit_v.wav"):new sound("sounds\\brick_hit.wav");
+				}
+    }
 	
 	public byte numBrick()
 	{
@@ -115,13 +106,18 @@ public class levels
 
             for (int j = 0; j < col; j++) {
             	
-            	if(pattern[i][j] && bricks[i][j].state)
+            	if(bricks[i][j].state)
             	{
             		count++;
             	}
             }
         }
 		return count;
+	}
+	
+	int limit(int val,int Hlim)
+	{
+		return Math.min(Math.max(val, 0), Hlim-1);
 	}
 
 }

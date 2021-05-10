@@ -109,8 +109,7 @@ public class main_menu extends JPanel
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			JButton btn = (JButton) e.getSource();
-	        lev_no = (int) btn.getClientProperty("row") + 3 * ((int) btn.getClientProperty("column"));
-	        System.out.println(lev_no);
+	        lev_no = (int) btn.getClientProperty("column") + 3 * ((int) btn.getClientProperty("row"));
 			select.setVisible(false);
 			title.setVisible(true);
 			start.setVisible(true);

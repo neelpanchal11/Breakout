@@ -10,11 +10,12 @@ import javax.swing.JLabel;
 
 public class ball
 {
-		public int x;
-		public int y;
+		public float x;
+		public float y;
 
 		public int step = 5;
-		boolean east = false, south = false;
+		float angle = 0;
+		boolean east = true, south = false;
 		public static int r = 36;
 
 		
@@ -27,15 +28,15 @@ public class ball
 		  public void draw(Graphics g)
 		  {
 			  g.setColor(new Color(255, 255, 255));
-			  g.fillOval(this.x, this.y, this.r, this.r);  
+			  g.fillOval((int)this.x, (int)this.y, this.r, this.r);  
 			  
 		  }
 
 		
 		public void motion()
 		{
-			this.x = this.x + (east?step:-step);
-			this.y = this.y + (south?step:-step);
+			this.x = this.x + (east?step+angle:-step-angle);
+			this.y = this.y + (south?step-angle:-step+angle);
 		}
 		
 		public void bounce_h(boolean trig)
@@ -48,12 +49,11 @@ public class ball
 			south = !(!south ^ trig);
 		}
 		
-		public void paddle_hit(boolean trig)
+		public void paddle_hit(boolean trig, boolean diff)
 		{
-			if (trig)
-			{
-			south = false;
-			sound paddle_hit = new sound("sounds\\paddle_hit.wav");
-			}
+			south = south && !trig;
+			angle = (float) (angle + (trig?(east ^ diff?0.5:-0.5):0));
+			sound paddle_hit = trig?new sound("sounds\\paddle_hit.wav"):null;
+			
 		}
 }

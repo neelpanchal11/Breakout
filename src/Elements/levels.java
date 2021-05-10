@@ -47,13 +47,13 @@ public class levels
         }
 	}
 
-	public boolean[] BrickColision(int ballx, int bally, int balld, int ballstep) 
+	public boolean[] BrickColision(float ballx, float bally, int balld, int ballstep) 
 	{
 		returning[0] = false;
 		returning[1] = false;
 		
-		int diffX = ballx - originX;
-		int diffY = bally - originY;
+		int diffX = (int)ballx - originX;
+		int diffY = (int)bally - originY;
 		
 		if(diffX + balld < 0 || diffY + balld < 0 || diffX > spacingX*col || diffY > spacingY*row)
 		{
@@ -83,7 +83,7 @@ public class levels
 		return returning;
 	}
 	
-	void collision_conditions(int i,int j, int ballx, int bally, int balld, int ballstep)
+	void collision_conditions(int i,int j, float ballx, float bally, int balld, int ballstep)
 	{
 
 				brick col_brick = bricks[i][j];

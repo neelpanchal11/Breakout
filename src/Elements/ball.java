@@ -15,7 +15,7 @@ public class ball
 
 		public int step = 5;
 		float angle = 0;
-		boolean east = true, south = false;
+		public boolean east = true, south = false;
 		public static int r = 36;
 
 		

@@ -47,7 +47,7 @@ public class levels
         }
 	}
 
-	public boolean[] BrickColision(float ballx, float bally, int balld, int ballstep) 
+	public boolean[] BrickColision(float ballx, float bally, int balld, int ballstep, boolean ballE, boolean ballS) 
 	{
 		returning[0] = false;
 		returning[1] = false;
@@ -67,23 +67,22 @@ public class levels
 		{
 			for (int l = 0; l<2 - (j[0] == j[1]?1:0); l++)
 			{
-		collision_conditions(i[k],j[l],ballx, bally, balld, ballstep);
+		collision_conditions(i[k],j[l],ballx, bally, balld, ballstep, ballE, ballS);
 			}
 		}
 		
-		boolean multi_collision[]= 
-			{
-					bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
-					bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state
-		};
-		
-		returning[0]= returning[0] && (multi_collision[0] || !multi_collision[1]);
-		returning[1]= returning[1] && (multi_collision[1] || !multi_collision[0]);
-		//score = (byte) (score + (returning[0]||returning[1]?1:0));
+//		boolean multi_collision[]= 
+//			{
+//					bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
+//					bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state
+//		};
+//		
+//		returning[0]= returning[0] && (multi_collision[0] || !multi_collision[1]);
+//		returning[1]= returning[1] && (multi_collision[1] || !multi_collision[0]);
 		return returning;
 	}
 	
-	void collision_conditions(int i,int j, float ballx, float bally, int balld, int ballstep)
+	void collision_conditions(int i,int j, float ballx, float bally, int balld, int ballstep, boolean ballE, boolean ballS)
 	{
 
 				brick col_brick = bricks[i][j];
@@ -92,8 +91,8 @@ public class levels
 				{            	   			
     				col_brick.state = false;
     				score++;
-    				returning[0] = bally + balld - ballstep < col_brick.y || bally + ballstep > col_brick.y + col_brick.h;
-    				returning[1] = ballx +balld - ballstep < col_brick.x || ballx + ballstep > col_brick.x + col_brick.w;  
+    				returning[0] = (bally + balld - ballstep < col_brick.y)&&ballS || (bally + ballstep > col_brick.y + col_brick.h)&&!ballS;
+    				returning[1] = (ballx +balld - ballstep < col_brick.x)&&ballE || (ballx + ballstep > col_brick.x + col_brick.w)&&!ballE;  
     				sound brick_hit = returning[0]?new sound("sounds\\brick_hit_v.wav"):new sound("sounds\\brick_hit.wav");
 				}
     }

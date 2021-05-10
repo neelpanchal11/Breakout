@@ -20,6 +20,7 @@ public class main_menu extends JPanel
 	 */
 	private static final long serialVersionUID = 1L;
 	JFrame run;
+	public static int lev_no;
 	public JButton exit;
 	public JButton start;
 	public JButton lev_button;
@@ -71,8 +72,9 @@ public class main_menu extends JPanel
 		exit.addActionListener(new exit());	
 		bg.start();
 		
-		select = new level_select(w,h);
+		select = new level_select(w,h, new Level_select_AL());
 		select.setVisible(false);
+		
 		this.add(select);
 	}
 
@@ -100,4 +102,22 @@ public class main_menu extends JPanel
 		}
 		
 	}
+	
+	public class Level_select_AL implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			JButton btn = (JButton) e.getSource();
+	        lev_no = (int) btn.getClientProperty("row") + 3 * ((int) btn.getClientProperty("column"));
+	        System.out.println(lev_no);
+			select.setVisible(false);
+			title.setVisible(true);
+			start.setVisible(true);
+			exit.setVisible(true);
+			lev_button.setVisible(true);
+	        
+		}
+	}
+	
 }

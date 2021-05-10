@@ -12,23 +12,23 @@ public class Board extends JPanel implements ActionListener, KeyListener
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	Timer time;
 	static int w;
 	static int h;
 	boolean pause = true;
 	boolean end = false;
-	boolean reset = false;
 	int lev_no;
 	int numBrick;
-	bg_music bg;
 	
+	bg_music bg;
+	Timer time;
 	Image canvas;
+	
 	paddle pad1;
 	ball ball1;
-	Menus menu = new Menus();
-	JPanel panel= new JPanel();
 	JLabel score_disp;
 	JLabel start_game;
+	
+	Menus menu = new Menus();
 	levels lev1;
 	
 	Board(int w, int h, int lev_no, bg_music bg)
@@ -62,8 +62,7 @@ public class Board extends JPanel implements ActionListener, KeyListener
 	public void paintComponent(Graphics g) 
 	{		
 			super.paintComponent(g);
-			g.drawImage(canvas,0,0,this);
-			
+			g.drawImage(canvas,0,0,this);	
 			pad1.draw(g);
 			ball1.draw(g);
 			lev1.draw(g);	
@@ -122,7 +121,6 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		{
 		
 			boolean[] side = lev1.BrickColision(ball1.x, ball1.y, ball1.r);
-			//score = (byte) (score + (side[0]||side[1]?1:0));
 			ball1.bounce_v(side[0]);
 			ball1.bounce_h(side[1]);
 		

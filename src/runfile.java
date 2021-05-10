@@ -9,28 +9,20 @@ public class runfile extends JFrame{
 	 */
 	private static final long serialVersionUID = -7141151800441150268L;
 	
-	static main_menu welcome;
+	static Board game;
+	public static main_menu welcome;
 	static runfile run = null;
 	static boolean reset = true;
 	public static void main (String[] args) 
 	{	
 		
-		while (true)
-		{
-			if(reset)
-			{	
-					run = new runfile();
-					reset = false;
-			}
-			if(welcome.on)
-			{		
-				run.remove(welcome);
-				start();
-				welcome.on = false;
-				reset = true;
-			}
-			System.out.println();
-		}
+//		while (true)
+//		{
+			run = new runfile();
+//			while(!welcome.on)
+//			{}			
+//			welcome.on = false;
+//		}
 	}
 	
 	public runfile()
@@ -44,26 +36,41 @@ public class runfile extends JFrame{
 		int w = this.getWidth();
 		int h = this.getHeight();
 		
-		welcome = new main_menu(w,h);
-		
+		welcome = new main_menu(w,h,this);
+		welcome.start.addActionListener(new start());
 		this.add(welcome);
+		
+		game = new Board(w,h,welcome.lev_no, welcome.bg);
+		game.setVisible(false);
+		this.add(game);
+		
+		
+		
 		this.repaint();
 	}
 
 	
 	public static void start()
 	{		
-
-		int w = run.getSize().width; 
-		int h = run.getSize().height;
-		
-		Board game = new Board(w,h,welcome.lev_no, welcome.bg);
-		
-		run.add(game);
+		run.remove(welcome);
+		game.setVisible(true);
+		run.repaint();
 		game.requestFocus();
-		game.startgame();
-		game.gameloop();
 		
+		//game.startgame();
+		//game.gameloop();
+		
+	}
+	public class start implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			welcome.lev_no = welcome.levelbox.getSelectedIndex();
+			welcome.on = true;
+
+			start();
+		}
 	}
 
 }

@@ -35,7 +35,6 @@ public class Board extends JPanel {
 		this.h = h;
 		this.lev_no = lev_no;
 		this.bg = bg;
-		bg.volume();
 	
 		score_disp = new JLabel();
 		start_game = new JLabel(new ImageIcon("sprites\\start.jpg"));
@@ -68,6 +67,7 @@ public class Board extends JPanel {
 	
 	public void gameloop() 
 	{
+		bg.volume();
 		while(true) 
 		{
 			if(!pause&&!end)

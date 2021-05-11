@@ -71,14 +71,14 @@ public class levels
 			}
 		}
 		
-//		boolean multi_collision[]= 
-//			{
-//					bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
-//					bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state
-//		};
-//		
-//		returning[0]= returning[0] && (multi_collision[0] || !multi_collision[1]);
-//		returning[1]= returning[1] && (multi_collision[1] || !multi_collision[0]);
+		boolean multi_collision[]= 
+			{
+					bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
+					bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state
+		};
+		
+		returning[0]= returning[0] && (multi_collision[0] || !multi_collision[1]);
+		returning[1]= returning[1] && (multi_collision[1] || !multi_collision[0]);
 		return returning;
 	}
 	

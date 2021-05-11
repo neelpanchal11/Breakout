@@ -115,8 +115,9 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		
 		ball1.bounce_h(ball1.x + ball1.r >= w || ball1.x <= 0);		
 		ball1.bounce_v(ball1.y <= 0);
-		ball1.paddle_hit((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w),
+		ball1.paddle_hit((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w) && ball1.south,
 				(pad1.x+pad1.w/2)>(ball1.x+ball.r/2));
+		
 			
 		boolean[] side = lev1.BrickColision(ball1.x, ball1.y, ball1.r, ball1.step, ball1.east, ball1.south);
 		ball1.bounce_v(side[0]);
@@ -148,7 +149,6 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		if(!pause&&!end) // Paddle Motion
 		{
 			pad1.keyPress(e,w);	
-		//	repaint();
 		}
 		
 		if (e.getKeyCode() == KeyEvent.VK_SHIFT) // PAUSE GAME

@@ -67,7 +67,16 @@ public class levels
 		{
 			for (int l = 0; l<2 - (j[0] == j[1]?1:0); l++)
 			{
-		collision_conditions(i[k],j[l],ballx, bally, balld, ballstep, ballE, ballS);
+				brick col_brick = bricks[i[k]][j[l]];
+				
+				if(col_brick.state)
+				{            	   			
+    				col_brick.state = false;
+    				score++;
+    				returning[0] = ((bally + balld - ballstep < col_brick.y)&&ballS) || ((bally + ballstep > col_brick.y + col_brick.h)&&!ballS);
+    				returning[1] = ((ballx +balld - ballstep < col_brick.x)&&ballE) || ((ballx + ballstep > col_brick.x + col_brick.w)&&!ballE);  
+    				sound brick_hit = returning[0]?new sound("sounds\\brick_hit_v.wav"):new sound("sounds\\brick_hit.wav");
+				}
 			}
 		}
 		
@@ -82,20 +91,7 @@ public class levels
 		return returning;
 	}
 	
-	void collision_conditions(int i,int j, float ballx, float bally, int balld, int ballstep, boolean ballE, boolean ballS)
-	{
 
-				brick col_brick = bricks[i][j];
-				
-				if(col_brick.state)
-				{            	   			
-    				col_brick.state = false;
-    				score++;
-    				returning[0] = (bally + balld - ballstep < col_brick.y)&&ballS || (bally + ballstep > col_brick.y + col_brick.h)&&!ballS;
-    				returning[1] = (ballx +balld - ballstep < col_brick.x)&&ballE || (ballx + ballstep > col_brick.x + col_brick.w)&&!ballE;  
-    				sound brick_hit = returning[0]?new sound("sounds\\brick_hit_v.wav"):new sound("sounds\\brick_hit.wav");
-				}
-    }
 	
 	public byte numBrick()
 	{
@@ -116,7 +112,7 @@ public class levels
 	
 	int limit(int val,int Hlim)
 	{
-		return Math.min(Math.max(val, 0), Hlim-1);
+		return val<Hlim-1?(val>0?val:0):Hlim-1;
 	}
 
 }

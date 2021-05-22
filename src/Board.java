@@ -2,6 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 
 import Elements.*;
+
 import java.awt.event.*;
 
 public class Board extends JPanel implements ActionListener, KeyListener
@@ -27,12 +28,14 @@ public class Board extends JPanel implements ActionListener, KeyListener
 	ball ball1;
 	JLabel score_disp;
 	JLabel start_game;
+	ActionListener reset;
 	
 	Menus menu = new Menus();
 	levels lev1;
 	
-	Board(int w, int h, int lev_no, bg_music bg)
+	Board(int w, int h, int lev_no, bg_music bg, ActionListener resetfunction)
 	{	
+		reset = resetfunction;
 		this.w= w;
 		this.h = h;
 		this.lev_no = lev_no;
@@ -67,25 +70,6 @@ public class Board extends JPanel implements ActionListener, KeyListener
 			ball1.draw(g);
 			lev1.draw(g);	
 
-	}
-	
-	public void gameloop() 
-	{
-		
-		{
-			if(!pause&&!end)
-			{
-				ball1.motion();
-				collisionCheck();
-				score_display(lev1.score);
-				repaint();
-			}
-			else
-			{
-				pause = menu.resume();
-			}
-			
-		}
 	}
 	
 	public void score_display(byte score)
@@ -127,21 +111,32 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		{
 			bg.stop();
 			end = true;
-			menu.endgame(numBrick == lev1.score); //method for end menu
+			menu.endgame(numBrick == lev1.score, reset); //method for end menu
 		}
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e)
+	{
 		time.start();
-		gameloop();
 		
+		if(!pause&&!end)
+		{
+			ball1.motion();
+			collisionCheck();
+			score_display(lev1.score);
+			repaint();
+		}
+		else
+		{
+			pause = menu.resume();
+		}
+			
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -173,6 +168,5 @@ public class Board extends JPanel implements ActionListener, KeyListener
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
-	}
+		}
 }

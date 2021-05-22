@@ -10,7 +10,7 @@ public class Menus extends JFrame {
 	JLabel pause_img;
 	bg_music bg;
 	
-	public void endgame(boolean won)
+	public void endgame(boolean won, ActionListener resetfunction)
 	{
 	    JLabel l1;
 	    JLabel l2;
@@ -37,7 +37,7 @@ public class Menus extends JFrame {
 	    l1.setBounds(90,120,600,440);
 	    
 	    exit.addActionListener(new BL());
-	    reset.addActionListener(new RL());
+	    reset.addActionListener(resetfunction);
 	    
 	    setOpacity(1f);
 	    setUndecorated(true);
@@ -115,6 +115,7 @@ public class Menus extends JFrame {
 				System.exit(0);			
 			}
 	}
+
 	public class RL implements ActionListener
 	{
 		  public void actionPerformed(ActionEvent e)

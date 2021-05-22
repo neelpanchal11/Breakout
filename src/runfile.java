@@ -42,7 +42,7 @@ public class runfile extends JFrame{
 		run.remove(welcome);
 		int w = run.getWidth();
 		int h = run.getHeight();
-		game = new Board(w,h,welcome.lev_no, welcome.bg);
+		game = new Board(w,h,welcome.lev_no, welcome.bg, run.new reset_button_AL());
 		run.add(game);
 		run.repaint();
 		game.requestFocus();
@@ -56,5 +56,14 @@ public class runfile extends JFrame{
 			start_game();
 		}
 	}
-
+	
+	public class reset_button_AL implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			run = new runfile();
+		}
+	}
+	
 }

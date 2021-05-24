@@ -17,7 +17,7 @@ public class ball
 		float angle = 0;
 		public boolean east = true, south = false;
 		public static int r = 36;
-
+		sound paddle_hit = new sound("sounds\\paddle_hit.wav");
 		
 		public ball(int x, int y)
 		{
@@ -54,7 +54,9 @@ public class ball
 			south = south && !trig;
 			angle = (float) (angle + (trig?(east ^ diff?0.5:-0.5):0));
 			angle = Math.min(Math.max(angle, -step/2), step/2); // Angle range from 26 degrees to 63 degrees
-			sound paddle_hit = trig?new sound("sounds\\paddle_hit.wav"):null;
-			
+			if(trig)
+			{
+			paddle_hit.start();
+			}
 		}
 }

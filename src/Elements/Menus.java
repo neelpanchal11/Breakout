@@ -9,6 +9,10 @@ public class Menus extends JFrame {
 	boolean reset = false;
 	JLabel pause_img;
 	bg_music bg;
+	sound win_sound = new sound("sounds\\win.wav");
+	sound lose_sound = new sound("sounds\\lose.wav");
+	sound pause_sound = new sound("sounds\\pause.wav");
+	sound unpause_sound = new sound("sounds\\unpause.wav");
 	
 	public void endgame(boolean won, ActionListener resetfunction)
 	{
@@ -18,7 +22,7 @@ public class Menus extends JFrame {
 	    if (won)
 	    {
 	    	l1 = new JLabel(new ImageIcon("sprites\\finished.jpeg"));
-	    	sound win_sound = new sound("sounds\\win.wav");
+	    	win_sound.start();
 	    }
 	    
 	    else
@@ -27,7 +31,7 @@ public class Menus extends JFrame {
 	    	l2 = new JLabel(new ImageIcon("sprites\\lose.jpg"));
 		    l2.setBounds(130,20,500,100);
 		    add(l2);
-		    sound lose_sound = new sound("sounds\\lose.wav");
+		    lose_sound.start();
 	    }
 	    JButton reset = new JButton(new ImageIcon("sprites\\menu.jpg"));
 	    JButton exit = new JButton(new ImageIcon("sprites\\exit2.jpg"));
@@ -59,6 +63,7 @@ public class Menus extends JFrame {
 	{
 		pause_img = new JLabel(new ImageIcon("sprites\\paused.jpg"));
 	    pause = true;
+	    pause_sound.start();
 		setLocation(0,0);
 	    setSize(w,h);
 	    setUndecorated(true);
@@ -99,6 +104,7 @@ public class Menus extends JFrame {
 				pause_img.setVisible(false);
 				dispose();
 				pause = false;
+				unpause_sound.start();
 			}
 			
 			if (e.getKeyCode() == KeyEvent.VK_ESCAPE)

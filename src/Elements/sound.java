@@ -6,7 +6,8 @@ import java.io.IOException;
 import javax.sound.sampled.*;
 
 public class sound {
-	
+	Clip clip;
+	Clip clip2; // backup clip if clip 1 is busy
 	public sound(String loc)
 	{
 		
@@ -15,9 +16,12 @@ public class sound {
 		try
 		{	
 			AudioInputStream audio = AudioSystem.getAudioInputStream(file);
-			Clip clip = AudioSystem.getClip();
+			AudioInputStream audio2 = AudioSystem.getAudioInputStream(file);
+			clip = AudioSystem.getClip();
 			clip.open(audio);
-			clip.start();
+			clip2 = AudioSystem.getClip();
+			clip2.open(audio2);
+			
 		
 			// TODO Auto-generated catch blocks
 		}
@@ -33,6 +37,22 @@ public class sound {
 		{
 			e.printStackTrace();
 		}
+		
+	}
+	
+	public void start()
+	{
+		if(clip.isRunning()) // backup clip if clip 1 is busy
+		{
+			clip2.start();
+			clip2.setFramePosition(0);
+			
+		}else {
+			
+			clip.start();
+			clip.setFramePosition(0);
+		}
+		
 		
 	}
 }

@@ -12,7 +12,7 @@ public class Board extends JPanel implements ActionListener, KeyListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	sound wall_hit = new sound("sounds//wall.wav");
 	static int w;
 	static int h;
 	boolean pause = true;
@@ -99,6 +99,10 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		
 		ball1.bounce_h(ball1.x + ball1.r >= w || ball1.x <= 0);		
 		ball1.bounce_v(ball1.y <= 0);
+		if(ball1.x + ball1.r >= w || ball1.x <= 0||ball1.y <= 0)
+		{
+			wall_hit.start();
+		}
 		ball1.paddle_hit((ball1.y +ball1.r > pad1.y && ball1.y < pad1.y) && (ball1.x >= pad1.x && ball1.x +ball1.r <= pad1.x+pad1.w) && ball1.south,
 				(pad1.x+pad1.w/2)>(ball1.x+ball.r/2));
 		

@@ -11,6 +11,8 @@ public class levels
 	pattern pat = new pattern();
 	public byte score = 0;
 	boolean[] returning = {false,false}; // {Vertical col, Horizontal col}
+	sound brick_hit_horizontal = new sound("sounds\\brick_hit.wav");
+	sound brick_hit_vertical = new sound("sounds\\brick_hit_v.wav");
 	public levels(int row ,int col, int pat_no)
 	{
 		this.row = row;
@@ -75,7 +77,8 @@ public class levels
     				score++;
     				returning[0] = ((bally + balld - ballstep < col_brick.y)&&ballS) || ((bally + ballstep > col_brick.y + col_brick.h)&&!ballS);
     				returning[1] = ((ballx +balld - ballstep < col_brick.x)&&ballE) || ((ballx + ballstep > col_brick.x + col_brick.w)&&!ballE);  
-    				sound brick_hit = returning[0]?new sound("sounds\\brick_hit_v.wav"):new sound("sounds\\brick_hit.wav");
+    				sound brick_hit = returning[0]?brick_hit_horizontal:brick_hit_vertical;
+    				brick_hit.start();
 				}
 			}
 		}

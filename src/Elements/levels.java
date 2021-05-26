@@ -10,7 +10,7 @@ public class levels
 	boolean[][] pattern;
 	pattern pat = new pattern();
 	public byte score = 0;
-	boolean[] returning = {false,false}; // {Vertical col, Horizontal col}
+
 	sound brick_hit_horizontal = new sound("sounds\\brick_hit.wav");
 	sound brick_hit_vertical = new sound("sounds\\brick_hit_v.wav");
 	public levels(int row ,int col, int pat_no)
@@ -49,21 +49,28 @@ public class levels
         }
 	}
 
-	public boolean[] BrickColision(float ballx, float bally, int balld, int ballstep, boolean ballE, boolean ballS) 
+	public boolean[] BrickColision(float ballx, float bally, int balld, boolean ballE, boolean ballS) 
 	{
-		returning[0] = false;
-		returning[1] = false;
+		boolean[] returning = {false,false}; // {Vertical col, Horizontal col}
 		
-		int diffX = (int)ballx - originX;
-		int diffY = (int)bally - originY;
+		int diffX = (int)ballx - originX,
+		    diffY = (int)bally - originY,
+		    i[] = {diffY/spacingY,(diffY + balld)/spacingY},
+		    j[] = {diffX/spacingX,(diffX + balld)/spacingX};
+		
 		
 		if(diffX + balld < 0 || diffY + balld < 0 || diffX > spacingX*col || diffY > spacingY*row)
 		{
 			return returning;
 		}
 		
-		int i[] = {limit(diffY/spacingY,row),limit((diffY + balld)/spacingY,row)},
-			j[] = {limit(diffX/spacingX,col),limit((diffX + balld)/spacingX,col)};
+		limit(i,row);
+		limit(j,col);
+		
+		boolean v_stacked = i[1] != i[0],
+		        h_stacked = j[1] != j[0],
+		        v_stack_state = bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
+		        h_stack_state = bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state; 
 		
 		for (int k = 0; k<2 - (i[0] == i[1]?1:0); k++)
 		{
@@ -75,22 +82,14 @@ public class levels
 				{            	   			
     				col_brick.state = false;
     				score++;
-    				returning[0] = ((bally + balld - ballstep < col_brick.y)&&ballS) || ((bally + ballstep > col_brick.y + col_brick.h)&&!ballS);
-    				returning[1] = ((ballx +balld - ballstep < col_brick.x)&&ballE) || ((ballx + ballstep > col_brick.x + col_brick.w)&&!ballE);  
+    				returning[0]= v_stacked && (!h_stacked || v_stack_state || !(h_stack_state||(k == 1 ^ ballS)));
+    				returning[1]= h_stacked && (!v_stacked || h_stack_state || !(v_stack_state||(l == 1 ^ ballE))); 
     				sound brick_hit = returning[0]?brick_hit_horizontal:brick_hit_vertical;
     				brick_hit.start();
 				}
 			}
 		}
-		
-		boolean multi_collision[]= 
-			{
-					bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
-					bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state
-		};
-		
-		returning[0]= returning[0] && (multi_collision[0] || !multi_collision[1]);
-		returning[1]= returning[1] && (multi_collision[1] || !multi_collision[0]);
+
 		return returning;
 	}
 	
@@ -113,9 +112,18 @@ public class levels
 		return count;
 	}
 	
-	int limit(int val,int Hlim)
+	void limit(int i[],int Hlim)
 	{
-		return val<Hlim-1?(val>0?val:0):Hlim-1;
+		if (i[0] < 0)
+		{
+			i[0] = 0;
+			i[1]=0;
+		}
+		if (i[1] >= Hlim)
+		{
+			i[0] = Hlim-1;
+			i[1] = Hlim-1;
+		}
 	}
 
 }

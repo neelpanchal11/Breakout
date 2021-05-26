@@ -107,7 +107,7 @@ public class Board extends JPanel implements ActionListener, KeyListener
 				(pad1.x+pad1.w/2)>(ball1.x+ball.r/2));
 		
 			
-		boolean[] side = lev1.BrickColision(ball1.x, ball1.y, ball1.r, ball1.step, ball1.east, ball1.south);
+		boolean[] side = lev1.BrickColision(ball1.x, ball1.y, ball1.r, ball1.east, ball1.south);
 		ball1.bounce_v(side[0]);
 		ball1.bounce_h(side[1]);
 		

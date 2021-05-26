@@ -15,12 +15,11 @@ public class sound {
 		
 		try
 		{	
-			AudioInputStream audio = AudioSystem.getAudioInputStream(file);
-			AudioInputStream audio2 = AudioSystem.getAudioInputStream(file);
+
 			clip = AudioSystem.getClip();
-			clip.open(audio);
+			clip.open(AudioSystem.getAudioInputStream(file));
 			clip2 = AudioSystem.getClip();
-			clip2.open(audio2);
+			clip2.open(AudioSystem.getAudioInputStream(file));
 			
 		
 			// TODO Auto-generated catch blocks
@@ -46,7 +45,9 @@ public class sound {
 		{
 			clip2.start();
 			clip2.setFramePosition(0);
-			
+			if(clip2.isRunning()) {
+				System.out.print("lol");
+			}
 		}else {
 			
 			clip.start();

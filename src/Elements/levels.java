@@ -59,17 +59,19 @@ public class levels
 		    j[] = {diffX/spacingX,(diffX + balld)/spacingX};
 		
 		
-		if(diffX + balld < 0 || diffY + balld < 0 || diffX > spacingX*col || diffY > spacingY*row)
+		if(diffX + balld <= 0 || diffY + balld <= 0 || diffX >= spacingX*col || diffY >= spacingY*row)
 		{
 			return returning;
 		}
 		
+		boolean v_stacked = i[1] != i[0],
+		        h_stacked = j[1] != j[0];
+
+
 		limit(i,row);
 		limit(j,col);
 		
-		boolean v_stacked = i[1] != i[0],
-		        h_stacked = j[1] != j[0],
-		        v_stack_state = bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
+		boolean v_stack_state = bricks[i[0]][j[0]].state && bricks[i[0]][j[1]].state || bricks[i[1]][j[0]].state && bricks[i[1]][j[1]].state,
 		        h_stack_state = bricks[i[0]][j[0]].state && bricks[i[1]][j[0]].state || bricks[i[0]][j[1]].state && bricks[i[1]][j[1]].state; 
 		
 		for (int k = 0; k<2 - (i[0] == i[1]?1:0); k++)
@@ -79,7 +81,8 @@ public class levels
 				brick col_brick = bricks[i[k]][j[l]];
 				
 				if(col_brick.state)
-				{            	   			
+				{            	   		
+
     				col_brick.state = false;
     				score++;
     				returning[0]= v_stacked && (!h_stacked || v_stack_state || !(h_stack_state||(k == 1 ^ ballS)));

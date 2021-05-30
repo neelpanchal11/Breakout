@@ -28,14 +28,13 @@ public class Board extends JPanel implements ActionListener, KeyListener
 	ball ball1;
 	JLabel score_disp;
 	JLabel start_game;
-	ActionListener reset;
 	
-	Menus menu = new Menus();
+	pause_menu pausemenu;
+	end_menu endmenu;
 	levels lev1;
 	
 	Board(int w, int h, int lev_no, bg_music bg, ActionListener resetfunction)
 	{	
-		reset = resetfunction;
 		this.w= w;
 		this.h = h;
 		this.lev_no = lev_no;
@@ -48,13 +47,17 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		lev1 = new levels(6,9, lev_no);
 		pad1 = new paddle((w-pad1.w)/2,750);   
 		ball1 = new ball((w-ball1.r)/2,600);
+		pausemenu = new pause_menu(w,h,bg,this);
+		endmenu = new end_menu(resetfunction);
 		canvas = createImage(w,h);
 		lev1.generate();
 		numBrick = lev1.numBrick();
 		
 		time = new Timer(1,this);
 		time.start();
-
+		
+		this.add(pausemenu);
+		this.add(endmenu);
 		this.setBounds(0,0,w,h);
 		this.setLayout(null);
 		this.setBackground(new Color(50,50,50));
@@ -115,7 +118,7 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		{
 			bg.stop();
 			end = true;
-			menu.endgame(numBrick == lev1.score, reset); //method for end menu
+			endmenu.endgame(numBrick == lev1.score); //method for end menu
 		}
 	}
 
@@ -133,7 +136,7 @@ public class Board extends JPanel implements ActionListener, KeyListener
 		}
 		else
 		{
-			pause = menu.resume();
+			pause = pausemenu.resume();
 		}
 			
 	}
@@ -155,7 +158,7 @@ public class Board extends JPanel implements ActionListener, KeyListener
 			if (!pause&&!end) 
 			{
 				pause = true;
-				menu.pausegame(w,h,bg);
+				pausemenu.pausegame();
 			}
 		}
 		

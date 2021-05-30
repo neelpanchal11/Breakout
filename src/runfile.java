@@ -13,7 +13,7 @@ public class runfile extends JFrame{
 	static Board game;
 	static main_menu welcome;
 	static runfile run;
-	
+	static bg_music bg = new bg_music();
 	public static void main (String[] args) 
 	{	
 		run = new runfile();
@@ -29,7 +29,7 @@ public class runfile extends JFrame{
 		
 		w = this.getWidth();
 		h = this.getHeight();
-		welcome = new main_menu(w,h,this);
+		welcome = new main_menu(w,h,this,bg);
 		welcome.start.addActionListener(new start_button_AL());
 		
 		this.add(welcome);
@@ -42,7 +42,7 @@ public class runfile extends JFrame{
 		run.remove(welcome);
 		int w = run.getWidth();
 		int h = run.getHeight();
-		game = new Board(w,h,welcome.lev_no, welcome.bg, run.new reset_button_AL());
+		game = new Board(w,h,welcome.lev_no, bg, run.new reset_button_AL());
 		run.add(game);
 		run.repaint();
 		game.requestFocus();
